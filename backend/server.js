@@ -11,24 +11,32 @@ const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// === ROTATION DES CLÉS GROQ ===
+// === ROTATION CLES + MODELES GROQ ===
 const GROQ_KEYS = [
   process.env.GROQ_KEY_1 || 'gsk_VOTRE_CLE_GROQ_1_ICI',
   process.env.GROQ_KEY_2 || 'gsk_VOTRE_CLE_GROQ_2_ICI'
 ];
 
-let currentKeyIndex = 0;
-const keyUsageCount = [0, 0];
-const KEY_ROTATION_LIMIT = 1; // Rotate every 50 requests
+const GROQ_MODELS = [
+  'llama-3.3-70b-versatile',
+  'llama-3.1-70b-versatile',
+  'llama3-8b-8192',
+  'gemma2-9b-it',
+  'mixtral-8x7b-32768'
+];
+
+let reqCount = 0;
 
 function getNextGroqKey() {
-  keyUsageCount[currentKeyIndex]++;
-  if (keyUsageCount[currentKeyIndex] >= KEY_ROTATION_LIMIT) {
-    keyUsageCount[currentKeyIndex] = 0;
-    currentKeyIndex = (currentKeyIndex + 1) % GROQ_KEYS.length;
-    console.log(`[GROQ] Rotation vers clé #${currentKeyIndex + 1}`);
-  }
-  return GROQ_KEYS[currentKeyIndex];
+  const key = GROQ_KEYS[reqCount % GROQ_KEYS.length];
+  return key;
+}
+
+function getNextGroqModel() {
+  const model = GROQ_MODELS[reqCount % GROQ_MODELS.length];
+  reqCount++;
+  console.log(`[GROQ] Requete #${reqCount} — Cle #${(reqCount % GROQ_KEYS.length)+1} — Modele: ${model}`);
+  return model;
 }
 
 // === MIDDLEWARE ===
@@ -65,6 +73,7 @@ app.post('/api/chat', async (req, res) => {
   if (!message) return res.status(400).json({ error: 'Message requis' });
 
   const apiKey = getNextGroqKey();
+  const model = getNextGroqModel();
 
   const messages = [
     {
@@ -88,7 +97,7 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: model,
         messages,
         max_tokens: 800,
         temperature: 0.7
