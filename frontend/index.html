@@ -1359,7 +1359,7 @@ function saveGroqKeys() {
   
   const count = [k1,k2].filter(Boolean).length;
   showGroqStatus('ok', `✅ تم حفظ ${count} مفتاح — التناوب مفعّل`);
-  updateAiStatus(true);
+  updateAiStatus(true); document.getElementById('ai-dot').className='status-dot online'; document.getElementById('ai-status-text').textContent='✅ الذكاء AI مفعّل — جاهز';
 }
 
 function clearGroqKeys() {
@@ -1619,6 +1619,8 @@ window.addEventListener('load', () => {
   updateAiStatus(true);
   showGroqStatus('ok', '✅ الذكاء AI مفعّل — الخادم جاهز');
 
+  // Reveiller backend
+  fetch('https://fallah-dz.onrender.com/').catch(()=>{});
   // Restore wilaya
   var w = localStorage.getItem('fellah_wilaya');
   if (w) {
