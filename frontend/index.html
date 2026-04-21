@@ -1316,10 +1316,8 @@ const chatHistory = [];
 
 
 function updateAiStatus(online) {
-  const dot = document.getElementById('ai-dot');
-  const txt = document.getElementById('ai-status-text');
-  dot.className = 'status-dot online';
-  txt.textContent = '✅ الذكاء AI مفعّل — جاهز';
+  document.getElementById('ai-dot').className = 'status-dot online';
+  document.getElementById('ai-status-text').textContent = '✅ الذكاء AI مفعّل — جاهز';
 } else {
     dot.className = 'status-dot';
     txt.textContent = '✅ الذكاء AI مفعّل — جاهز';
