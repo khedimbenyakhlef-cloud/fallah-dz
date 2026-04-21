@@ -19,7 +19,7 @@ const GROQ_KEYS = [
 
 let currentKeyIndex = 0;
 const keyUsageCount = [0, 0];
-const KEY_ROTATION_LIMIT = 50; // Rotate every 50 requests
+const KEY_ROTATION_LIMIT = 1; // Rotate every 50 requests
 
 function getNextGroqKey() {
   keyUsageCount[currentKeyIndex]++;
@@ -88,7 +88,7 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'llama3-70b-8192',
+        model: 'llama-3.3-70b-versatile',
         messages,
         max_tokens: 800,
         temperature: 0.7
