@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a3d1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="فلاح">
+<meta name="description" content="فلاح — المساعد الزراعي الذكي للفلاح الجزائري">
+<title>🌾 فلاح — FellaH</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================================
+   VARIABLES & RESET
+================================ */
+:root {
+  --green-dark: #0f2d0f;
+  --green-mid: #1e5c1e;
+  --green-light: #3a8f3a;
+  --green-pale: #c3e6c3;
+  --green-bg: #f0f7f0;
+  --amber: #e8a020;
+  --amber-dark: #b87a10;
+  --amber-light: #fef3d8;
+  --red: #c0392b;
+  --red-light: #fdecea;
+  --blue: #1a6fa8;
+  --blue-light: #e3f0fb;
+  --earth: #8B6914;
+  --earth-light: #f5ead8;
+  --white: #ffffff;
+  --text: #1a2e1a;
+  --text-muted: #5a7a5a;
+  --border: #c8dfc8;
+  --shadow: 0 4px 24px rgba(26,61,26,0.14);
+  --shadow-sm: 0 2px 8px rgba(26,61,26,0.08);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --header-h: 110px;
+  --nav-h: 60px;
+  --bottom-h: 64px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--green-bg);
+  color: var(--text);
+  min-height: 100vh;
+  direction: rtl;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================================
+   HEADER
+================================ */
+.header {
+  background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-mid) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 3px 24px rgba(0,0,0,0.35);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--amber), #f5c842);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 3px 10px rgba(232,160,32,0.4);
+  flex-shrink: 0;
+}
+
+.logo-texts { display: flex; flex-direction: column; }
+
+.logo-title {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.logo-sub {
+  color: var(--green-pale);
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-weather {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.header-weather:hover { background: rgba(255,255,255,0.22); }
+
+.header-notif {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+.header-notif:hover { background: rgba(255,255,255,0.25); }
+.notif-badge {
+  position: absolute;
+  top: 3px; right: 3px;
+  width: 8px; height: 8px;
+  background: var(--amber);
+  border-radius: 50%;
+  border: 2px solid var(--green-dark);
+}
+
+/* ================================
+   NAV TABS
+================================ */
+.nav-tabs {
+  display: flex;
+  overflow-x: auto;
+  background: rgba(0,0,0,0.25);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  flex: 1;
+  min-width: 64px;
+  padding: 8px 6px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+.nav-tab.active {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+  background: rgba(255,255,255,0.07);
+}
+.nav-tab:hover:not(.active) { color: rgba(255,255,255,0.85); }
+.nav-tab .ti { font-size: 17px; }
+
+/* ================================
+   MAIN CONTENT
+================================ */
+.main {
+  padding: 14px 14px 80px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section { display: none; animation: fadeUp 0.28s ease; }
+.section.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   CARDS
+================================ */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title .ci {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-xs);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ================================
+   HERO
+================================ */
+.hero-card {
+  background: linear-gradient(150deg, var(--green-mid), var(--green-dark));
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  margin-bottom: 14px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(15,45,15,0.35);
+}
+
+.hero-card::before {
+  content: '🌾';
+  position: absolute;
+  left: -16px; bottom: -20px;
+  font-size: 100px;
+  opacity: 0.1;
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.hero-card::after {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-greeting { font-size: 12px; color: var(--green-pale); margin-bottom: 3px; }
+
+.hero-title { font-size: 20px; font-weight: 800; margin-bottom: 14px; line-height: 1.3; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,0.11);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 9px 6px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.hero-stat-val { font-size: 18px; font-weight: 800; color: var(--amber); }
+.hero-stat-label { font-size: 9px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+/* ================================
+   ALERTS
+================================ */
+.alert {
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.alert:last-child { margin-bottom: 0; }
+.alert-icon { font-size: 20px; flex-shrink: 0; }
+.alert.danger  { background: var(--red-light);   color: var(--red);       border-right: 4px solid var(--red);   }
+.alert.warning { background: var(--amber-light);  color: var(--amber-dark); border-right: 4px solid var(--amber); }
+.alert.success { background: #e8f5e9; color: #1b5e20; border-right: 4px solid var(--green-light); }
+.alert.info    { background: var(--blue-light);  color: var(--blue);       border-right: 4px solid var(--blue);  }
+
+/* ================================
+   CROP GRID
+================================ */
+.crop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.crop-card {
+  background: var(--green-bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative;
+}
+.crop-card:hover, .crop-card.recommended {
+  border-color: var(--green-light);
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.crop-badge {
+  position: absolute; top: 6px; left: 6px;
+  background: var(--green-mid); color: white;
+  font-size: 9px; padding: 2px 7px;
+  border-radius: 10px; font-weight: 700;
+}
+
+.crop-emoji { font-size: 32px; display: block; margin-bottom: 5px; }
+.crop-name  { font-size: 14px; font-weight: 700; color: var(--green-dark); }
+.crop-info  { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.crop-price { font-size: 13px; font-weight: 700; color: var(--amber-dark); margin-top: 6px; }
+.trend-up   { color: var(--green-light); }
+.trend-down { color: var(--red); }
+
+/* ================================
+   MARKET TABLE
+================================ */
+.price-table { width: 100%; border-collapse: collapse; }
+.price-table th {
+  text-align: right; font-size: 11px;
+  color: var(--text-muted); padding: 6px 4px;
+  border-bottom: 1px solid var(--border); font-weight: 600;
+}
+.price-table td {
+  padding: 10px 4px; font-size: 13px;
+  border-bottom: 1px solid var(--green-bg); vertical-align: middle;
+}
+.price-table tr:last-child td { border-bottom: none; }
+.price-name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.price-val  { font-weight: 700; color: var(--green-dark); }
+.price-change {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 10px; white-space: nowrap;
+}
+.price-change.up   { background: #e8f5e9; color: #1b5e20; }
+.price-change.down { background: var(--red-light); color: var(--red); }
+.price-change.flat { background: #f0f0f0; color: #888; }
+
+/* ================================
+   DISEASE DETECTOR
+================================ */
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--green-bg);
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--green-mid);
+  background: var(--green-pale);
+}
+.upload-zone input { display: none; }
+.upload-icon { font-size: 44px; margin-bottom: 10px; transition: transform 0.2s; }
+.upload-zone:hover .upload-icon { transform: scale(1.1); }
+.upload-text { font-size: 14px; color: var(--text-muted); font-weight: 600; }
+.upload-hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+.disease-result-card {
+  background: white;
+  border: 1px solid #f5c0bc;
+  border-right: 4px solid var(--red);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-top: 12px;
+}
+.disease-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.disease-title-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+.disease-content {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.disease-content strong { color: var(--green-dark); }
+
+/* ================================
+   WEATHER
+================================ */
+.weather-big { text-align: center; padding: 16px 0 12px; }
+.weather-emoji { font-size: 64px; display: block; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.weather-temp { font-size: 52px; font-weight: 800; color: var(--green-dark); line-height: 1; margin-top: 6px; }
+.weather-desc { font-size: 15px; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+.weather-location { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+.weather-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 16px; }
+.weather-item {
+  background: var(--green-bg); border-radius: var(--radius-sm);
+  padding: 12px; text-align: center;
+}
+.weather-item-icon { font-size: 22px; }
+.weather-item-val  { font-size: 14px; font-weight: 700; color: var(--green-dark); margin-top: 4px; }
+.weather-item-label { font-size: 10px; color: var(--text-muted); }
+
+.forecast-row {
+  display: flex; gap: 8px; overflow-x: auto;
+  padding-bottom: 4px; scrollbar-width: none;
+}
+.forecast-row::-webkit-scrollbar { display: none; }
+.forecast-day {
+  flex-shrink: 0; background: var(--green-bg); border-radius: 12px;
+  padding: 10px 14px; text-align: center; min-width: 72px;
+  border: 1.5px solid transparent; transition: all 0.2s;
+}
+.forecast-day.today { background: var(--green-mid); color: white; border-color: transparent; }
+.forecast-day:not(.today):hover { border-color: var(--green-light); background: white; }
+.forecast-day-name { font-size: 11px; font-weight: 600; }
+.forecast-emoji { font-size: 24px; margin: 5px 0; }
+.forecast-temp { font-size: 13px; font-weight: 700; }
+
+/* ================================
+   AI CHAT
+================================ */
+.chat-box {
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  height: 280px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  display: flex; flex-direction: column; gap: 10px;
+  scroll-behavior: smooth;
+}
+
+.msg {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.65;
+  animation: msgPop 0.2s ease;
+}
+@keyframes msgPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.msg.user {
+  align-self: flex-start;
+  background: var(--green-dark);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+.msg.ai {
+  align-self: flex-end;
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+.msg.loading {
+  color: var(--text-muted);
+  font-style: italic;
+}
+.msg.loading::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  animation: dots 1.2s infinite;
+}
+@keyframes dots {
+  0%{content:'.'} 33%{content:'..'} 66%{content:'...'} 100%{content:''}
+}
+
+.quick-questions {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.quick-q {
+  background: var(--green-bg); border: 1px solid var(--border);
+  border-radius: 20px; padding: 6px 12px;
+  font-family: 'Tajawal', sans-serif; font-size: 12px;
+  color: var(--green-dark); cursor: pointer;
+  transition: all 0.18s; white-space: nowrap;
+}
+.quick-q:hover { background: var(--green-pale); border-color: var(--green-light); }
+
+.chat-input-row { display: flex; gap: 8px; align-items: center; }
+.chat-input {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 24px;
+  padding: 11px 16px; font-family: 'Tajawal', sans-serif; font-size: 13px;
+  outline: none; background: white; direction: rtl; color: var(--text);
+  transition: border-color 0.2s;
+}
+.chat-input:focus { border-color: var(--green-mid); }
+
+.chat-send {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+  border: none; color: white; font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.18s; box-shadow: 0 3px 12px rgba(58,143,58,0.35);
+}
+.chat-send:hover { transform: scale(1.08); box-shadow: 0 5px 18px rgba(58,143,58,0.5); }
+.chat-send:active { transform: scale(0.96); }
+
+.ai-status {
+  font-size: 11px; color: var(--text-muted);
+  text-align: center; margin-top: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text-muted); flex-shrink: 0;
+}
+.status-dot.online { background: #4caf50; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ================================
+   CALENDAR
+================================ */
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; margin-top: 8px;
+}
+.cal-day-name {
+  text-align: center; font-size: 11px; font-weight: 700;
+  color: var(--text-muted); padding: 4px 0;
+}
+.cal-day {
+  text-align: center; padding: 7px 2px; border-radius: 8px;
+  font-size: 13px; cursor: pointer; transition: all 0.18s;
+  position: relative;
+}
+.cal-day:hover:not(.empty) { background: var(--green-pale); }
+.cal-day.today {
+  background: var(--green-mid); color: white;
+  font-weight: 700; box-shadow: 0 2px 8px rgba(30,92,30,0.3);
+}
+.cal-day.has-event::after {
+  content: ''; position: absolute; bottom: 3px;
+  left: 50%; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--amber);
+}
+.cal-day.today.has-event::after { background: white; }
+.cal-day.empty { pointer-events: none; }
+
+/* ================================
+   SETTINGS
+================================ */
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid var(--green-bg);
+  gap: 10px;
+}
+.setting-row:last-child { border-bottom: none; }
+.setting-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.setting-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.setting-select {
+  border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 6px 10px; font-family: 'Tajawal', sans-serif;
+  font-size: 13px; background: white; color: var(--text);
+  outline: none; min-width: 110px; cursor: pointer;
+  direction: rtl;
+}
+.setting-select:focus { border-color: var(--green-mid); }
+
+.toggle {
+  width: 46px; height: 26px; border-radius: 13px;
+  background: #ccc; cursor: pointer; position: relative;
+  transition: background 0.25s; flex-shrink: 0;
+}
+.toggle::after {
+  content: ''; position: absolute;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: white; top: 3px; right: 3px;
+  transition: transform 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on { background: var(--green-mid); }
+.toggle.on::after { transform: translateX(-20px); }
+
+.api-input {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; font-family: monospace; font-size: 13px;
+  outline: none; background: var(--green-bg); color: var(--text);
+  transition: border-color 0.2s;
+}
+.api-input:focus { border-color: var(--green-mid); background: white; }
+
+/* ================================
+   BUTTONS
+================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px 18px; border-radius: 10px;
+  font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; border: none; transition: all 0.18s;
+}
+.btn-green {
+  background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+  color: white; box-shadow: 0 3px 12px rgba(30,92,30,0.3);
+}
+.btn-green:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(30,92,30,0.4); }
+.btn-green:active { transform: translateY(0); }
+.btn-outline {
+  background: transparent; color: var(--green-mid);
+  border: 2px solid var(--green-mid);
+}
+.btn-outline:hover { background: var(--green-pale); }
+.btn-amber {
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  color: white; box-shadow: 0 3px 12px rgba(232,160,32,0.3);
+}
+
+/* ================================
+   TIPS
+================================ */
+.tip-card {
+  background: var(--green-bg); border-radius: var(--radius-xs);
+  padding: 12px; margin-bottom: 8px; border-right: 3px solid var(--green-light);
+}
+.tip-card:last-child { margin-bottom: 0; }
+.tip-label { font-size: 13px; font-weight: 700; color: var(--green-dark); margin-bottom: 4px; }
+.tip-text  { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+/* ================================
+   SECTION TITLE
+================================ */
+.section-title {
+  font-size: 15px; font-weight: 700; color: var(--green-dark);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+}
+
+/* ================================
+   LOADING SPINNER
+================================ */
+.spinner {
+  display: inline-block; width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================================
+   FOOTER CREDIT
+================================ */
+.footer-credit {
+  text-align: center; padding: 18px 0 6px;
+  font-size: 11px; color: var(--text-muted);
+  line-height: 1.7;
+}
+.footer-credit strong { color: var(--green-dark); }
+
+/* ================================
+   BADGE
+================================ */
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 700; background: var(--amber-light);
+  color: var(--amber-dark);
+}
+
+/* ================================
+   REGION FILTER
+================================ */
+.region-bar {
+  display: flex; gap: 6px; overflow-x: auto;
+  margin-bottom: 14px; padding-bottom: 4px; scrollbar-width: none;
+}
+.region-bar::-webkit-scrollbar { display: none; }
+.region-pill {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--border); background: white;
+  color: var(--text-muted); transition: all 0.18s;
+}
+.region-pill.active { background: var(--green-mid); color: white; border-color: var(--green-mid); }
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (min-width: 480px) {
+  .main { padding: 18px 20px 90px; }
+  .hero-title { font-size: 22px; }
+  .weather-temp { font-size: 60px; }
+}
+
+@media (min-width: 640px) {
+  .main { padding: 22px 24px 100px; }
+  .crop-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ================================
+   INSTALL BANNER (PWA)
+================================ */
+.install-banner {
+  display: none;
+  background: linear-gradient(135deg, var(--amber-light), #fff8e1);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.install-banner.show { display: flex; }
+.install-banner-text { font-size: 13px; color: var(--amber-dark); font-weight: 600; }
+.install-banner-text small { display: block; font-size: 11px; font-weight: 400; }
+
+/* ================================
+   GROQ STATUS
+================================ */
+.groq-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-muted); margin-top: 6px;
+}
+.groq-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+.groq-dot.ok { background: #4caf50; }
+.groq-dot.error { background: var(--red); }
+</style>
+</head>
+
+<body>
+
+<!-- ================================
+     HEADER
+================================ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🌾</div>
+      <div class="logo-texts">
+        <span class="logo-title">فلاح</span>
+        <span class="logo-sub">المساعد الزراعي الجزائري</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-weather" onclick="showTab('weather')">
+        <span>☀️</span>
+        <span id="hdr-temp">32°</span>
+        <span>وهران</span>
+      </div>
+      <div class="header-notif" onclick="alert('لا توجد إشعارات جديدة')">
+        🔔
+        <span class="notif-badge"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('home',this)">
+      <span class="ti">🏠</span><span>الرئيسية</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('crops',this)">
+      <span class="ti">🌱</span><span>المحاصيل</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('market',this)">
+      <span class="ti">📈</span><span>الأسعار</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('disease',this)">
+      <span class="ti">🔬</span><span>تشخيص</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('weather',this)">
+      <span class="ti">🌤</span><span>الطقس</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('chat',this)">
+      <span class="ti">💬</span><span>الذكاء AI</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('calendar',this)">
+      <span class="ti">📅</span><span>التقويم</span>
+    </button>
+    <button class="nav-tab" onclick="showTab('settings',this)">
+      <span class="ti">⚙️</span><span>الإعدادات</span>
+    </button>
+  </nav>
+</header>
+
+<!-- ================================
+     MAIN
+================================ -->
+<main class="main">
+
+  <!-- ===== HOME ===== -->
+  <div class="section active" id="tab-home">
+
+    <div id="install-banner" class="install-banner">
+      <div class="install-banner-text">
+        📲 ثبّت التطبيق على هاتفك
+        <small>استخدمه بدون إنترنت في أي وقت</small>
+      </div>
+      <button class="btn btn-amber" id="install-btn" style="padding:8px 14px;font-size:12px">تثبيت</button>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-greeting">🌅 صباح الخير، فلاح!</div>
+      <div class="hero-title">يوم فلاحي مثمر 🌿<br>الثلاثاء 21 أفريل 2026</div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val">3</div>
+          <div class="hero-stat-label">محاصيل نشطة</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">32°</div>
+          <div class="hero-stat-label">الحرارة اليوم</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">2</div>
+          <div class="hero-stat-label">مهام اليوم</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#fdecea">🚨</span> تنبيهات عاجلة</div>
+      <div class="alert danger"><span class="alert-icon">🌡️</span> موجة حر قادمة غداً — اسقِ الليلة واحمِ الشتلات الحساسة</div>
+      <div class="alert warning"><span class="alert-icon">💧</span> سقي حقل الفلفل متأخر 3 أيام — تدخّل اليوم</div>
+      <div class="alert success"><span class="alert-icon">🍅</span> الطماطم — سعرها في قمته، وقت البيع المثالي الآن</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e8f5e9">📋</span> مهام اليوم</div>
+      <div class="setting-row">
+        <div><div class="setting-label">💧 سقي حقل الفلفل</div><div class="setting-sub">منطقة الشمال — ضروري</div></div>
+        <span style="font-size:20px;cursor:pointer" onclick="this.textContent=this.textContent=='⏰'?'✅':'⏰'">⏰</span>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">🌿 رش سماد الطماطم</div><div class="setting-sub">سماد NPK 20-20-20</div></div>
+        <span style="font-size:20px;cursor:pointer" onclick="this.textContent=this.textContent=='⏰'?'✅':'⏰'">⏰</span>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">🔬 فحص نباتات الباذنجان</div><div class="setting-sub">شوهدت أعراض مشبوهة أمس</div></div>
+        <span style="font-size:20px;cursor:pointer" onclick="this.textContent=this.textContent=='⏰'?'✅':'⏰'">⏰</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e3f0fb">💡</span> نصيحة اليوم</div>
+      <div class="tip-card">
+        <div class="tip-label">🌡️ اسقِ في الوقت الصحيح</div>
+        <div class="tip-text">في الصيف، السقي الصباح الباكر (قبل 8 صباحاً) أو بعد الغروب يقلل التبخر بنسبة 40% ويوفر الماء ويحمي الجذور من الصدمة الحرارية.</div>
+      </div>
+    </div>
+
+    <div class="footer-credit">
+      🌱 فلاح v2.0 — مجاني وبدون إعلانات<br>
+      صُنع بـ ❤️ للفلاح الجزائري<br>
+      <strong>فكرة ومشروع: KHEDIM BENYAKHLEF DIT BENY JOE</strong>
+    </div>
+  </div>
+
+  <!-- ===== CROPS ===== -->
+  <div class="section" id="tab-crops">
+    <div class="region-bar">
+      <div class="region-pill active" onclick="filterRegion(this,'وهران')">📍 وهران</div>
+      <div class="region-pill" onclick="filterRegion(this,'الجزائر')">الجزائر</div>
+      <div class="region-pill" onclick="filterRegion(this,'سطيف')">سطيف</div>
+      <div class="region-pill" onclick="filterRegion(this,'بسكرة')">بسكرة</div>
+      <div class="region-pill" onclick="filterRegion(this,'معسكر')">معسكر</div>
+      <div class="region-pill" onclick="filterRegion(this,'تيبازة')">تيبازة</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e8f5e9">🌱</span> محاصيل مناسبة لأفريل — وهران</div>
+      <div class="crop-grid" id="crops-grid">
+        <div class="crop-card recommended">
+          <div class="crop-badge">⭐ موصى</div>
+          <span class="crop-emoji">🍅</span>
+          <div class="crop-name">طماطم</div>
+          <div class="crop-info">⏱ 70 يوم | 💧 منتظم</div>
+          <div class="crop-price">65 دج/كغ <span class="trend-up">▲</span></div>
+        </div>
+        <div class="crop-card">
+          <span class="crop-emoji">🌶️</span>
+          <div class="crop-name">فلفل</div>
+          <div class="crop-info">⏱ 90 يوم | 💧 متوسط</div>
+          <div class="crop-price">120 دج/كغ <span class="trend-up">▲</span></div>
+        </div>
+        <div class="crop-card recommended">
+          <div class="crop-badge">⭐ موصى</div>
+          <span class="crop-emoji">🥒</span>
+          <div class="crop-name">خيار</div>
+          <div class="crop-info">⏱ 50 يوم | 💧 كثير</div>
+          <div class="crop-price">45 دج/كغ <span class="trend-up">▲</span></div>
+        </div>
+        <div class="crop-card">
+          <span class="crop-emoji">🥬</span>
+          <div class="crop-name">كوسة</div>
+          <div class="crop-info">⏱ 45 يوم | 💧 متوسط</div>
+          <div class="crop-price">18 دج/كغ <span class="trend-down">▼</span></div>
+        </div>
+        <div class="crop-card">
+          <span class="crop-emoji">🍆</span>
+          <div class="crop-name">باذنجان</div>
+          <div class="crop-info">⏱ 80 يوم | 💧 متوسط</div>
+          <div class="crop-price">38 دج/كغ <span class="trend-up">▲</span></div>
+        </div>
+        <div class="crop-card">
+          <span class="crop-emoji">🌿</span>
+          <div class="crop-name">نعناع</div>
+          <div class="crop-info">⏱ 30 يوم | 💧 منتظم</div>
+          <div class="crop-price">80 دج/كغ <span class="trend-up">▲</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#fef3d8">📚</span> دليل الزراعة الموسمية</div>
+      <div class="tip-card">
+        <div class="tip-label">🌸 أفريل–ماي: موسم الربيع</div>
+        <div class="tip-text">مناسب للبندورة، الفلفل، الخيار. تأكد من إعداد التربة وإضافة السماد العضوي قبل الزراعة بأسبوع.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label">☀️ جوان–جويلية: الحرارة الشديدة</div>
+        <div class="tip-text">تجنب زراعة الشتلات الحساسة. ركز على التحميات والمحاصيل الصيفية كالبطيخ والشمام.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label">🍂 سبتمبر–أكتوبر: موسم الخريف</div>
+        <div class="tip-text">وقت زراعة الجزر، البصل، الثوم، والسبانخ. الطقس المعتدل مناسب جداً لأغلب الخضروات.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MARKET ===== -->
+  <div class="section" id="tab-market">
+    <div class="card">
+      <div class="card-title">
+        <span class="ci" style="background:#e8f5e9">📈</span> أسعار السوق اليوم
+        <span class="badge" style="margin-right:auto">وهران</span>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-bottom:12px">آخر تحديث: اليوم الثلاثاء 21 أفريل 2026</p>
+      <table class="price-table" id="price-table">
+        <thead>
+          <tr>
+            <th>المنتج</th>
+            <th style="text-align:center">السعر (دج/كغ)</th>
+            <th style="text-align:center">التغيير</th>
+          </tr>
+        </thead>
+        <tbody id="price-tbody">
+          <tr><td><div class="price-name">🍅 طماطم</div></td><td style="text-align:center"><span class="price-val">65</span></td><td style="text-align:center"><span class="price-change up">▲ +8%</span></td></tr>
+          <tr><td><div class="price-name">🥔 بطاطا</div></td><td style="text-align:center"><span class="price-val">35</span></td><td style="text-align:center"><span class="price-change down">▼ -5%</span></td></tr>
+          <tr><td><div class="price-name">🌶️ فلفل</div></td><td style="text-align:center"><span class="price-val">120</span></td><td style="text-align:center"><span class="price-change up">▲ +15%</span></td></tr>
+          <tr><td><div class="price-name">🧅 بصل</div></td><td style="text-align:center"><span class="price-val">28</span></td><td style="text-align:center"><span class="price-change flat">= 0%</span></td></tr>
+          <tr><td><div class="price-name">🥕 جزر</div></td><td style="text-align:center"><span class="price-val">42</span></td><td style="text-align:center"><span class="price-change up">▲ +6%</span></td></tr>
+          <tr><td><div class="price-name">🥬 كوسة</div></td><td style="text-align:center"><span class="price-val">18</span></td><td style="text-align:center"><span class="price-change down">▼ -12%</span></td></tr>
+          <tr><td><div class="price-name">🌽 ذرة</div></td><td style="text-align:center"><span class="price-val">22</span></td><td style="text-align:center"><span class="price-change flat">= 0%</span></td></tr>
+          <tr><td><div class="price-name">🧄 ثوم</div></td><td style="text-align:center"><span class="price-val">320</span></td><td style="text-align:center"><span class="price-change up">▲ +4%</span></td></tr>
+          <tr><td><div class="price-name">🍆 باذنجان</div></td><td style="text-align:center"><span class="price-val">38</span></td><td style="text-align:center"><span class="price-change flat">= 0%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e3f0fb">💡</span> توصية البيع الذكية</div>
+      <div class="alert success"><span class="alert-icon">🍅</span> طماطم — بع الآن! السعر في أعلى مستوياته هذا الشهر</div>
+      <div class="alert info"><span class="alert-icon">🌶️</span> فلفل — انتظر أسبوعاً، توقع ارتفاع إضافي 10%</div>
+      <div class="alert danger"><span class="alert-icon">🥬</span> كوسة — السوق مشبع، لا تبع الآن</div>
+      <div class="alert warning"><span class="alert-icon">🧄</span> ثوم — انتهز الفرصة، الموسم قارب على الانتهاء</div>
+    </div>
+  </div>
+
+  <!-- ===== DISEASE ===== -->
+  <div class="section" id="tab-disease">
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#fdecea">🔬</span> تشخيص أمراض النبات بالذكاء AI</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">صوّر نبتتك المريضة وسنشخص المشكلة ونعطيك الحل خلال ثوانٍ</p>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('plant-img').click()">
+        <input type="file" id="plant-img" accept="image/*" onchange="analyzePlant(this)">
+        <div class="upload-icon" id="upload-preview">📸</div>
+        <div class="upload-text">اضغط لالتقاط أو اختيار صورة النبتة</div>
+        <div class="upload-hint">JPG, PNG — حتى 10 ميغا</div>
+      </div>
+      <div id="disease-result-box"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#fef3d8">📚</span> أمراض شائعة في وهران</div>
+      <div class="tip-card">
+        <div class="tip-label">🍅 البياض الزغبي (الميلديو) على الطماطم</div>
+        <div class="tip-text">الأعراض: بقع صفراء–بنية على الأوراق العليا، زغب رمادي في الأسفل.<br>العلاج: رش مانكوزيب 2غ/لتر مرة أسبوعياً لمدة 3 أسابيع.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label">🌶️ العفن الرمادي (البوتريتيس) على الفلفل</div>
+        <div class="tip-text">الأعراض: بقع بنية مائية على الثمار والأوراق، رائحة عفن.<br>العلاج: أزل الأجزاء المصابة وقلل الرطوبة، رش إيبروديون.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label">🐛 حشرة المن (Pucerons)</div>
+        <div class="tip-text">الأعراض: تجعد الأوراق، سائل لزج أصفر، نمل حول النبات.<br>العلاج: رش صابون البوتاسيوم 5غ/لتر أو إيميداكلوبريد.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label">🍃 لفحة الأوراق (Alternaria)</div>
+        <div class="tip-text">الأعراض: بقع بنية داكنة بحواف صفراء على الأوراق القديمة.<br>العلاج: رش بوردو 1% أو كلوروثالونيل كل 10 أيام.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WEATHER ===== -->
+  <div class="section" id="tab-weather">
+    <div class="card">
+      <div class="weather-big">
+        <span class="weather-emoji">☀️</span>
+        <div class="weather-temp">32°</div>
+        <div class="weather-desc">صحو — حار وجاف</div>
+        <div class="weather-location">📍 وهران، الجزائر</div>
+      </div>
+      <div class="weather-grid">
+        <div class="weather-item">
+          <div class="weather-item-icon">💧</div>
+          <div class="weather-item-val">25%</div>
+          <div class="weather-item-label">رطوبة</div>
+        </div>
+        <div class="weather-item">
+          <div class="weather-item-icon">💨</div>
+          <div class="weather-item-val">18 كم/س</div>
+          <div class="weather-item-label">الريح</div>
+        </div>
+        <div class="weather-item">
+          <div class="weather-item-icon">🌅</div>
+          <div class="weather-item-val">06:12</div>
+          <div class="weather-item-label">الشروق</div>
+        </div>
+        <div class="weather-item">
+          <div class="weather-item-icon">🌇</div>
+          <div class="weather-item-val">19:45</div>
+          <div class="weather-item-label">الغروب</div>
+        </div>
+        <div class="weather-item">
+          <div class="weather-item-icon">☁️</div>
+          <div class="weather-item-val">10%</div>
+          <div class="weather-item-label">غيوم</div>
+        </div>
+        <div class="weather-item">
+          <div class="weather-item-icon">🌡️</div>
+          <div class="weather-item-val">18°</div>
+          <div class="weather-item-label">الليل</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e3f0fb">📅</span> توقعات 7 أيام</div>
+      <div class="forecast-row">
+        <div class="forecast-day today">
+          <div class="forecast-day-name">اليوم</div>
+          <div class="forecast-emoji">☀️</div>
+          <div class="forecast-temp">32°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">الأربعاء</div>
+          <div class="forecast-emoji">🌤</div>
+          <div class="forecast-temp">35°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">الخميس</div>
+          <div class="forecast-emoji">🌤</div>
+          <div class="forecast-temp">36°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">الجمعة</div>
+          <div class="forecast-emoji">⛅</div>
+          <div class="forecast-temp">30°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">السبت</div>
+          <div class="forecast-emoji">🌧</div>
+          <div class="forecast-temp">22°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">الأحد</div>
+          <div class="forecast-emoji">⛅</div>
+          <div class="forecast-temp">26°</div>
+        </div>
+        <div class="forecast-day">
+          <div class="forecast-day-name">الإثنين</div>
+          <div class="forecast-emoji">☀️</div>
+          <div class="forecast-temp">29°</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e8f5e9">🌾</span> توصيات زراعية للطقس</div>
+      <div class="alert warning"><span class="alert-icon">🌡️</span> غداً حار جداً (35°) — اسقِ مساء اليوم، وتجنب الزراعة من 10ص إلى 5م</div>
+      <div class="alert info"><span class="alert-icon">🌧️</span> مطر متوقع السبت — لا داعي للسقي الجمعة، وفر الماء</div>
+      <div class="alert success"><span class="alert-icon">💨</span> رياح معتدلة اليوم — مناسب لرش المبيدات والأسمدة</div>
+    </div>
+  </div>
+
+  <!-- ===== CHAT ===== -->
+  <div class="section" id="tab-chat">
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e8f5e9">💬</span> مساعدك الزراعي AI</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">اسأل بالدارجة أو العربية — مدعوم بـ Groq AI (مجاني)</p>
+
+      <div class="quick-questions">
+        <button class="quick-q" onclick="sendQuick('كيفاش نعالج البياض الزغبي على الطماطم؟')">البياض الزغبي؟</button>
+        <button class="quick-q" onclick="sendQuick('شنو تزرع في ماي في وهران؟')">ماذا أزرع في ماي؟</button>
+        <button class="quick-q" onclick="sendQuick('كيفاش نحسب كمية السماد للطماطم؟')">كمية السماد؟</button>
+        <button class="quick-q" onclick="sendQuick('كيفاش نوفر الماء في الصيف؟')">توفير الماء؟</button>
+        <button class="quick-q" onclick="sendQuick('وقتاش نبيع الفلفل؟')">متى أبيع؟</button>
+      </div>
+
+      <div class="chat-box" id="chat-messages">
+        <div class="msg ai">السلام عليكم! أنا مساعدك الزراعي الذكي 🌿<br>اسألني أي شيء عن زراعتك، الأمراض، الأسعار أو الطقس. أجيبك بالدارجة!</div>
+      </div>
+
+      <div class="chat-input-row">
+        <input class="chat-input" id="chat-input" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendChat()}">
+        <button class="chat-send" id="send-btn" onclick="sendChat()">↑</button>
+      </div>
+
+      <div class="ai-status">
+        <div class="status-dot" id="ai-dot"></div>
+        <span id="ai-status-text">الذكاء AI — غير مفعّل (أدخل مفتاح Groq في الإعدادات)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CALENDAR ===== -->
+  <div class="section" id="tab-calendar">
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e8f5e9">📅</span> تقويم الزراعة — أفريل 2026</div>
+      <div class="cal-grid">
+        <div class="cal-day-name">ن</div><div class="cal-day-name">ث</div><div class="cal-day-name">ر</div>
+        <div class="cal-day-name">خ</div><div class="cal-day-name">ج</div><div class="cal-day-name">س</div><div class="cal-day-name">ح</div>
+        <div class="cal-day empty"></div><div class="cal-day empty"></div>
+        <div class="cal-day">1</div><div class="cal-day has-event">2</div><div class="cal-day">3</div>
+        <div class="cal-day has-event">4</div><div class="cal-day">5</div>
+        <div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div>
+        <div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day has-event">11</div><div class="cal-day">12</div>
+        <div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day has-event">15</div>
+        <div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day has-event">19</div>
+        <div class="cal-day">20</div><div class="cal-day today has-event">21</div><div class="cal-day">22</div>
+        <div class="cal-day has-event">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div>
+        <div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#fef3d8">📌</span> مواعيد هذا الشهر</div>
+      <div class="setting-row">
+        <div><div class="setting-label">2 أفريل — رش سماد</div><div class="setting-sub">🌿 حقل الطماطم — منطقة الشمال</div></div>
+        <span style="color:var(--green-mid);font-size:20px">✅</span>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">21 أفريل — اليوم</div><div class="setting-sub">💧 سقي حقل الفلفل — مهم!</div></div>
+        <span style="color:var(--amber);font-size:20px">⏰</span>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">23 أفريل</div><div class="setting-sub">🔬 رش ضد المن — كل الحقول</div></div>
+        <span style="color:var(--text-muted);font-size:20px">📅</span>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">30 أفريل</div><div class="setting-sub">🚚 بيع الطماطم — سوق وهران</div></div>
+        <span style="color:var(--text-muted);font-size:20px">📅</span>
+      </div>
+      <div style="margin-top:14px">
+        <button class="btn btn-green" style="width:100%" onclick="alert('قريباً: إضافة مواعيد مخصصة')">+ إضافة موعد جديد</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS ===== -->
+  <div class="section" id="tab-settings">
+    <div class="card">
+      <div class="card-title"><span class="ci" style="background:#e3f0fb">🤖</span> مفاتيح Groq AI</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">أدخل مفتاحَي Groq — سيتناوبان تلقائياً لتجنب الحد اليومي. تبقى محفوظة في جهازك فقط.</p>
+      
+      <div style="margin-bottom:8px">
+        <label style="font-size:12px;font-weight:700;color:var(--green-dark);display:block;margin-bottom:4px">المفتاح الأول 🔑</label>
+        <input class="api-input" type="password" id="groq-key-1" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxx">
+      </div>
+      <div style="margin-bottom:10px">
+        <label style="font-size:12px;font-weight:700;color:var(--green-dark);display:block;margin-bottom:4px">المفتاح الثاني 🔑</label>
+        <input class="api-input" type="password" id="groq-key-2" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxx">
+      </div>
+      
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-green" onclick="saveGroqKeys()" style="flex:1">💾 حفظ المفاتيح</button>
+        <button class="btn btn-outline" onclick="clearGroqKeys()">🗑️ حذف</button>
+      </div>
+      
+      <div class="groq-status" id="groq-status">
+        <div class="groq-dot" id="groq-dot"></div>
+        <span id="groq-status-text">لم تُدخَل مفاتيح بعد</span>
+      </div>
+
+      <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">
+        📎 احصل على مفتاح مجاني من <a href="https://console.groq.com" target="_blank" style="color:var(--blue)">console.groq.com</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">🌍 إعدادات الموقع</div>
+      <div class="setting-row">
+        <div><div class="setting-label">الولاية</div><div class="setting-sub">لتخصيص التوصيات والطقس</div></div>
+        <select class="setting-select" onchange="updateRegion(this.value)">
+          <option selected>وهران</option><option>الجزائر</option><option>سطيف</option>
+          <option>معسكر</option><option>بسكرة</option><option>البليدة</option>
+          <option>عنابة</option><option>قسنطينة</option><option>تلمسان</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">نوع التربة</div></div>
+        <select class="setting-select">
+          <option>طينية</option><option>رملية</option><option>طينية رملية</option><option>حمراء</option><option>كلسية</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">مساحة الأرض</div></div>
+        <select class="setting-select">
+          <option>أقل من هكتار</option><option>1-5 هكتار</option><option>5-20 هكتار</option><option>أكثر من 20</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">🔔 الإشعارات</div>
+      <div class="setting-row">
+        <div><div class="setting-label">تنبيهات الطقس</div><div class="setting-sub">موجة حر، مطر، صقيع</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">تذكير السقي</div><div class="setting-sub">بناءً على الطقس والمحصول</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">تغيرات الأسعار</div><div class="setting-sub">ارتفاع أو انخفاض كبير</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">تحذيرات الأمراض</div><div class="setting-sub">انتشار في منطقتك</div></div>
+        <div class="toggle" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">🌐 اللغة والعرض</div>
+      <div class="setting-row">
+        <div><div class="setting-label">لغة التطبيق</div></div>
+        <select class="setting-select">
+          <option>العربية الدارجة</option><option>العربية الفصحى</option><option>Français</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">وحدة الوزن</div></div>
+        <select class="setting-select">
+          <option>كيلوغرام (كغ)</option><option>قنطار</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card" style="background:linear-gradient(135deg,var(--green-bg),#e8f5e8)">
+      <div style="text-align:center;padding:6px 0">
+        <div style="font-size:36px;margin-bottom:8px">🌾</div>
+        <div style="font-size:16px;font-weight:800;color:var(--green-dark)">فلاح v2.0</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">مجاني وبدون إعلانات</div>
+        <div style="margin-top:12px;padding:12px;background:white;border-radius:12px;border:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">فكرة ومشروع</div>
+          <div style="font-size:14px;font-weight:800;color:var(--green-dark)">KHEDIM BENYAKHLEF</div>
+          <div style="font-size:13px;font-weight:700;color:var(--amber-dark)">DIT BENY JOE</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px">صُنع بـ ❤️ للفلاح الجزائري — الجزائر 🇩🇿</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ================================
+     JAVASCRIPT
+================================ -->
+<script>
+// ===================================
+// CONFIG — Changer l'URL après déploiement Render
+// ===================================
+const BACKEND_URL = 'https://fellah-backend.onrender.com'; // ← Mettre l'URL Render après déploiement
+
+// ===================================
+// NAVIGATION
+// ===================================
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) {
+    btn.classList.add('active');
+  } else {
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'"+id+"'")) {
+        t.classList.add('active');
+      }
+    });
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===================================
+// GROQ KEY MANAGEMENT (Double rotation)
+// ===================================
+let chatKeyIndex = 0;
+const chatHistory = [];
+
+function getGroqKey() {
+  const k1 = localStorage.getItem('fellah_groq_1') || '';
+  const k2 = localStorage.getItem('fellah_groq_2') || '';
+  const keys = [k1, k2].filter(Boolean);
+  if (!keys.length) return null;
+  const key = keys[chatKeyIndex % keys.length];
+  chatKeyIndex++;
+  return key;
+}
+
+function saveGroqKeys() {
+  const k1 = document.getElementById('groq-key-1').value.trim();
+  const k2 = document.getElementById('groq-key-2').value.trim();
+  
+  if (!k1 && !k2) {
+    showGroqStatus('error', '⚠️ أدخل مفتاحاً واحداً على الأقل');
+    return;
+  }
+
+  if (k1) localStorage.setItem('fellah_groq_1', k1);
+  if (k2) localStorage.setItem('fellah_groq_2', k2);
+  
+  const count = [k1,k2].filter(Boolean).length;
+  showGroqStatus('ok', `✅ تم حفظ ${count} مفتاح — التناوب مفعّل`);
+  updateAiStatus(true);
+}
+
+function clearGroqKeys() {
+  localStorage.removeItem('fellah_groq_1');
+  localStorage.removeItem('fellah_groq_2');
+  document.getElementById('groq-key-1').value = '';
+  document.getElementById('groq-key-2').value = '';
+  showGroqStatus('off', 'تم حذف المفاتيح');
+  updateAiStatus(false);
+}
+
+function showGroqStatus(type, msg) {
+  const dot = document.getElementById('groq-dot');
+  const txt = document.getElementById('groq-status-text');
+  dot.className = 'groq-dot' + (type === 'ok' ? ' ok' : type === 'error' ? ' error' : '');
+  txt.textContent = msg;
+}
+
+function updateAiStatus(online) {
+  const dot = document.getElementById('ai-dot');
+  const txt = document.getElementById('ai-status-text');
+  if (online) {
+    dot.className = 'status-dot online';
+    txt.textContent = '✅ الذكاء AI مفعّل — Groq جاهز';
+  } else {
+    dot.className = 'status-dot';
+    txt.textContent = 'الذكاء AI — غير مفعّل (أدخل مفتاح Groq في الإعدادات)';
+  }
+}
+
+// ===================================
+// CHAT
+// ===================================
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  
+  input.value = '';
+  addMsg(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+
+  const apiKey = getGroqKey();
+  if (!apiKey) {
+    addMsg('⚙️ أدخل مفتاح Groq في الإعدادات لتفعيل الذكاء الاصطناعي', 'ai');
+    return;
+  }
+
+  const sendBtn = document.getElementById('send-btn');
+  sendBtn.innerHTML = '<div class="spinner"></div>';
+  sendBtn.disabled = true;
+
+  const loadingDiv = addMsg('جاري التفكير', 'ai loading');
+
+  try {
+    let reply;
+    
+    // Try backend first (if deployed), fallback to direct API
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: chatHistory.slice(-6) })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        reply = data.reply;
+      } else throw new Error('backend unavailable');
+    } catch {
+      // Fallback: direct Groq API call
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'llama3-70b-8192',
+          messages: [
+            {
+              role: 'system',
+              content: 'أنت مساعد زراعي ذكي للفلاحين الجزائريين. تتحدث بالدارجة الجزائرية أو العربية. أعطِ نصائح عملية عن الزراعة في الجزائر: المحاصيل، الأمراض، السقي، الأسمدة، الأسواق. كن مختصراً ومفيداً.'
+            },
+            ...chatHistory.slice(-6),
+            { role: 'user', content: text }
+          ],
+          max_tokens: 600
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      reply = data.choices?.[0]?.message?.content || 'عذراً، حاول مرة أخرى.';
+    }
+
+    loadingDiv.remove();
+    const aiMsg = addMsg(reply, 'ai');
+    chatHistory.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    loadingDiv.remove();
+    // Try second key if rate limited
+    const key2 = localStorage.getItem(chatKeyIndex % 2 === 0 ? 'fellah_groq_2' : 'fellah_groq_1');
+    addMsg('حدث خطأ في الاتصال. تحقق من المفتاح أو اتصالك بالإنترنت.', 'ai');
+  } finally {
+    sendBtn.innerHTML = '↑';
+    sendBtn.disabled = false;
+  }
+}
+
+function addMsg(text, type) {
+  const box = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  div.textContent = text;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  return div;
+}
+
+function sendQuick(text) {
+  document.getElementById('chat-input').value = text;
+  sendChat();
+}
+
+// ===================================
+// DISEASE DETECTION
+// ===================================
+async function analyzePlant(input) {
+  if (!input.files[0]) return;
+  const file = input.files[0];
+
+  document.getElementById('upload-preview').textContent = '⏳';
+  document.getElementById('disease-result-box').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)">🔍 جاري التحليل بالذكاء الاصطناعي...</div>';
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const base64 = e.target.result.split(',')[1];
+    const mediaType = file.type;
+
+    const apiKey = getGroqKey();
+    if (!apiKey) {
+      showDiseaseResult('⚙️ أدخل مفتاح Groq في الإعدادات لتشغيل التشخيص الذكي.', true);
+      return;
+    }
+
+    try {
+      let result;
+      
+      // Try backend
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/disease`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageBase64: base64, mediaType })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          result = data.result;
+        } else throw new Error('backend unavailable');
+      } catch {
+        // Fallback: direct Groq vision API
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.2-90b-vision-preview',
+            messages: [{
+              role: 'user',
+              content: [
+                { type: 'image_url', image_url: { url: `data:${mediaType};base64,${base64}` } },
+                { type: 'text', text: 'أنت خبير زراعي. حلل هذه الصورة وأجب بالعربية:\n**التشخيص:**\n**الأعراض:**\n**السبب:**\n**العلاج:**\n**الوقاية:**' }
+              ]
+            }],
+            max_tokens: 500
+          })
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error.message);
+        result = data.choices?.[0]?.message?.content || 'لم يتمكن من التشخيص.';
+      }
+
+      showDiseaseResult(result, false);
+      document.getElementById('upload-preview').textContent = '✅';
+    } catch (err) {
+      showDiseaseResult('حدث خطأ في التشخيص. تحقق من اتصالك بالإنترنت.', true);
+      document.getElementById('upload-preview').textContent = '❌';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function showDiseaseResult(text, isError) {
+  const box = document.getElementById('disease-result-box');
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  
+  box.innerHTML = `
+    <div class="disease-result-card">
+      <div class="disease-header">
+        <span style="font-size:24px">${isError ? '⚠️' : '🔬'}</span>
+        <div>
+          <div class="disease-title-label">نتيجة التشخيص</div>
+        </div>
+      </div>
+      <div class="disease-content">${formattedText}</div>
+    </div>
+  `;
+}
+
+// ===================================
+// REGION FILTER
+// ===================================
+function filterRegion(el, region) {
+  document.querySelectorAll('.region-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const grid = document.getElementById('crops-grid');
+  grid.style.opacity = '0.5';
+  grid.style.transform = 'scale(0.97)';
+  grid.style.transition = 'all 0.25s';
+  setTimeout(() => {
+    grid.style.opacity = '1';
+    grid.style.transform = 'scale(1)';
+  }, 300);
+}
+
+function updateRegion(region) {
+  document.querySelectorAll('.weather-location').forEach(el => {
+    el.textContent = `📍 ${region}، الجزائر`;
+  });
+}
+
+// ===================================
+// PWA INSTALL
+// ===================================
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('show');
+});
+
+document.getElementById('install-btn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('show');
+});
+
+// ===================================
+// INIT
+// ===================================
+window.addEventListener('load', () => {
+  // Restore Groq keys
+  const k1 = localStorage.getItem('fellah_groq_1');
+  const k2 = localStorage.getItem('fellah_groq_2');
+  if (k1) document.getElementById('groq-key-1').value = k1;
+  if (k2) document.getElementById('groq-key-2').value = k2;
+  
+  if (k1 || k2) {
+    const count = [k1,k2].filter(Boolean).length;
+    showGroqStatus('ok', `✅ ${count} مفتاح محفوظ — التناوب مفعّل`);
+    updateAiStatus(true);
+  }
+
+  // Update date in hero
+  const d = new Date();
+  const days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const months = ['جانفي','فيفري','مارس','أفريل','ماي','جوان','جويلية','أوت','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    heroTitle.innerHTML = `يوم فلاحي مثمر 🌿<br>${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  }
+});
+</script>
+</body>
+</html>

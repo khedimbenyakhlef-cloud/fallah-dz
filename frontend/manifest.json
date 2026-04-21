@@ -1,0 +1,47 @@
+{
+  "name": "فلاح — FellaH",
+  "short_name": "فلاح",
+  "description": "المساعد الزراعي الذكي للفلاح الجزائري — فكرة KHEDIM BENYAKHLEF DIT BENY JOE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f2d0f",
+  "theme_color": "#1e5c1e",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%231e5c1e'/><text x='50%' y='55%' font-size='120' text-anchor='middle' dominant-baseline='middle'>🌾</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%231e5c1e'/><text x='50%' y='55%' font-size='320' text-anchor='middle' dominant-baseline='middle'>🌾</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["agriculture", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "الذكاء AI",
+      "short_name": "AI",
+      "url": "/#chat",
+      "description": "اسأل المساعد الزراعي"
+    },
+    {
+      "name": "تشخيص النبات",
+      "short_name": "تشخيص",
+      "url": "/#disease",
+      "description": "فحص أمراض النبات"
+    },
+    {
+      "name": "أسعار السوق",
+      "short_name": "أسعار",
+      "url": "/#market",
+      "description": "أسعار المنتجات الزراعية"
+    }
+  ]
+}

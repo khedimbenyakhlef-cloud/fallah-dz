@@ -1,0 +1,38 @@
+# ================================================
+# FELLAH — Configuration Déploiement Render.com
+# Fondé par KHEDIM BENYAKHLEF DIT BENY JOE
+# ================================================
+
+services:
+  # === BACKEND (Web Service) ===
+  - type: web
+    name: fellah-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_KEY_1
+        sync: false   # <-- Entrer manuellement dans Render Dashboard
+      - key: GROQ_KEY_2
+        sync: false   # <-- Entrer manuellement dans Render Dashboard
+      - key: FRONTEND_URL
+        value: https://fellah-frontend.onrender.com
+    healthCheckPath: /
+    plan: free
+
+  # === FRONTEND (Static Site) ===
+  - type: web
+    name: fellah-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: echo "Static site — no build needed"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    envVars: []
+    plan: free
