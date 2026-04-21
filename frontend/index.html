@@ -1147,7 +1147,7 @@ body {
 
       <div class="ai-status">
         <div class="status-dot" id="ai-dot"></div>
-        <span id="ai-status-text">الذكاء AI — غير مفعّل (أدخل مفتاح Groq في الإعدادات)</span>
+        <span id="ai-status-text">✅ الذكاء AI مفعّل — جاهز</span>
       </div>
     </div>
   </div>
@@ -1231,9 +1231,7 @@ body {
       <div class="setting-row">
         <div><div class="setting-label">الولاية</div><div class="setting-sub">لتخصيص التوصيات والطقس</div></div>
         <select class="setting-select" onchange="updateRegion(this.value)">
-          <option selected>وهران</option><option>الجزائر</option><option>سطيف</option>
-          <option>معسكر</option><option>بسكرة</option><option>البليدة</option>
-          <option>عنابة</option><option>قسنطينة</option><option>تلمسان</option>
+          <option>أدرار</option><option>الشلف</option><option>الأغواط</option><option>أم البواقي</option><option>باتنة</option><option>بجاية</option><option>بسكرة</option><option>بشار</option><option>البليدة</option><option>البويرة</option><option>تمنراست</option><option>تبسة</option><option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option><option>الجزائر</option><option>الجلفة</option><option>جيجل</option><option>سطيف</option><option>سعيدة</option><option>سكيكدة</option><option>سيدي بلعباس</option><option>عنابة</option><option>قالمة</option><option>قسنطينة</option><option>المدية</option><option>مستغانم</option><option>المسيلة</option><option>معسكر</option><option>ورقلة</option><option selected>وهران</option><option>البيض</option><option>إليزي</option><option>برج بوعريريج</option><option>بومرداس</option><option>الطارف</option><option>تندوف</option><option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option><option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option><option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option><option>غرداية</option><option>غليزان</option><option>تيميمون</option><option>برج باجي مختار</option><option>أولاد جلال</option><option>بني عباس</option><option>عين صالح</option><option>عين قزام</option><option>توقرت</option><option>جانت</option><option>المغير</option><option>المنيعة</option>
         </select>
       </div>
       <div class="setting-row">
@@ -1584,6 +1582,7 @@ function filterRegion(el, region) {
 }
 
 function updateRegion(region) {
+  localStorage.setItem('fellah_wilaya', region);
   document.querySelectorAll('.weather-location').forEach(el => {
     el.textContent = `📍 ${region}، الجزائر`;
   });
@@ -1617,12 +1616,16 @@ window.addEventListener('load', () => {
   if (k1) document.getElementById('groq-key-1').value = k1;
   if (k2) document.getElementById('groq-key-2').value = k2;
   
-  if (k1 || k2) {
-    const count = [k1,k2].filter(Boolean).length;
-    showGroqStatus('ok', `✅ ${count} مفتاح محفوظ — التناوب مفعّل`);
-    updateAiStatus(true);
-  }
+  updateAiStatus(true);
+  showGroqStatus('ok', '✅ الذكاء AI مفعّل — الخادم جاهز');
 
+  // Restore wilaya
+  var w = localStorage.getItem('fellah_wilaya');
+  if (w) {
+    var sel = document.querySelector('.setting-select');
+    if (sel) { for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===w||sel.options[i].text===w){sel.selectedIndex=i;break;}} }
+    updateRegion(w);
+  }
   // Update date in hero
   const d = new Date();
   const days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
