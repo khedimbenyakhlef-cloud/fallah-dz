@@ -19,10 +19,8 @@ const GROQ_KEYS = [
 
 const GROQ_MODELS = [
   'llama-3.3-70b-versatile',
-  'llama-3.3-70b-versatile',
   'gemma2-9b-it',
-  'llama-3.3-70b-versatile',
-  'gemma2-9b-it'
+  'llama-3.1-8b-instant'
 ];
 
 let reqCount = 0;

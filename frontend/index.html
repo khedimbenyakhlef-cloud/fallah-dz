@@ -1516,28 +1516,7 @@ async function analyzePlant(input) {
           result = data.result;
         } else throw new Error('backend unavailable');
       } catch {
-        // Fallback: direct Groq vision API
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            model: 'llama-3.2-90b-vision-preview',
-            messages: [{
-              role: 'user',
-              content: [
-                { type: 'image_url', image_url: { url: `data:${mediaType};base64,${base64}` } },
-                { type: 'text', text: 'أنت خبير زراعي. حلل هذه الصورة وأجب بالعربية:\n**التشخيص:**\n**الأعراض:**\n**السبب:**\n**العلاج:**\n**الوقاية:**' }
-              ]
-            }],
-            max_tokens: 500
-          })
-        });
-        const data = await res.json();
-        if (data.error) throw new Error(data.error.message);
-        result = data.choices?.[0]?.message?.content || 'لم يتمكن من التشخيص.';
+        throw new Error('backend unavailable');
       }
 
       showDiseaseResult(result, false);
