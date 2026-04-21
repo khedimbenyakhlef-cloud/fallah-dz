@@ -1415,11 +1415,15 @@ async function sendChat() {
     
     // Try backend first (if deployed), fallback to direct API
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 60000);
       const res = await fetch(`${BACKEND_URL}/api/chat`, {
+        signal: controller.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, history: chatHistory.slice(-6) })
       });
+      clearTimeout(timeout);
       if (res.ok) {
         const data = await res.json();
         reply = data.reply;
