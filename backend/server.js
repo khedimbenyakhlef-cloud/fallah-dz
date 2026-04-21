@@ -13,28 +13,28 @@ const PORT = process.env.PORT || 3001;
 
 // === ROTATION CLES + MODELES GROQ ===
 const GROQ_KEYS = [
-  process.env.GROQ_KEY_1 || 'gsk_VOTRE_CLE_GROQ_1_ICI',
-  process.env.GROQ_KEY_2 || 'gsk_VOTRE_CLE_GROQ_2_ICI'
-];
+  process.env.GROQ_KEY_1 || '',
+  process.env.GROQ_KEY_2 || ''
+].filter(Boolean);
 
+// SEULS modèles actifs sur Groq en avril 2026
 const GROQ_MODELS = [
   'llama-3.3-70b-versatile',
-  'gemma2-9b-it',
   'llama-3.1-8b-instant'
 ];
 
 let reqCount = 0;
 
 function getNextGroqKey() {
-  const key = GROQ_KEYS[reqCount % GROQ_KEYS.length];
-  return key;
+  return GROQ_KEYS[reqCount % GROQ_KEYS.length];
 }
 
 function getNextGroqModel() {
+  const key = getNextGroqKey();
   const model = GROQ_MODELS[reqCount % GROQ_MODELS.length];
+  console.log(`[GROQ] Requete #${reqCount + 1} — Cle #${(reqCount % GROQ_KEYS.length) + 1} — Modele: ${model}`);
   reqCount++;
-  console.log(`[GROQ] Requete #${reqCount} — Cle #${(reqCount % GROQ_KEYS.length)+1} — Modele: ${model}`);
-  return model;
+  return { key, model };
 }
 
 // === MIDDLEWARE ===
@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
     app: 'FellaH API',
     version: '2.0.0',
     founder: 'KHEDIM BENYAKHLEF DIT BENY JOE',
-    activeKey: (reqCount % 2) + 1,
+    activeKey: (reqCount % Math.max(GROQ_KEYS.length, 1)) + 1,
     uptime: Math.floor(process.uptime()) + 's'
   });
 });
@@ -70,8 +70,7 @@ app.post('/api/chat', async (req, res) => {
   const { message, history = [] } = req.body;
   if (!message) return res.status(400).json({ error: 'Message requis' });
 
-  const apiKey = getNextGroqKey();
-  const model = getNextGroqModel();
+  const { key: apiKey, model } = getNextGroqModel();
 
   const messages = [
     {

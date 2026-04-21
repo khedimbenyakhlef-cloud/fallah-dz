@@ -1199,34 +1199,6 @@ body {
   <!-- ===== SETTINGS ===== -->
   <div class="section" id="tab-settings">
     <div class="card">
-      <div class="card-title"><span class="ci" style="background:#e3f0fb">🤖</span> مفاتيح Groq AI</div>
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">أدخل مفتاحَي Groq — سيتناوبان تلقائياً لتجنب الحد اليومي. تبقى محفوظة في جهازك فقط.</p>
-      
-      <div style="margin-bottom:8px">
-        <label style="font-size:12px;font-weight:700;color:var(--green-dark);display:block;margin-bottom:4px">المفتاح الأول 🔑</label>
-        <input class="api-input" type="password" id="groq-key-1" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxx">
-      </div>
-      <div style="margin-bottom:10px">
-        <label style="font-size:12px;font-weight:700;color:var(--green-dark);display:block;margin-bottom:4px">المفتاح الثاني 🔑</label>
-        <input class="api-input" type="password" id="groq-key-2" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxx">
-      </div>
-      
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="btn btn-green" onclick="saveGroqKeys()" style="flex:1">💾 حفظ المفاتيح</button>
-        <button class="btn btn-outline" onclick="clearGroqKeys()">🗑️ حذف</button>
-      </div>
-      
-      <div class="groq-status" id="groq-status">
-        <div class="groq-dot" id="groq-dot"></div>
-        <span id="groq-status-text">لم تُدخَل مفاتيح بعد</span>
-      </div>
-
-      <div style="margin-top:8px;font-size:11px;color:var(--text-muted)">
-        📎 احصل على مفتاح مجاني من <a href="https://console.groq.com" target="_blank" style="color:var(--blue)">console.groq.com</a>
-      </div>
-    </div>
-
-    <div class="card">
       <div class="section-title">🌍 إعدادات الموقع</div>
       <div class="setting-row">
         <div><div class="setting-label">الولاية</div><div class="setting-sub">لتخصيص التوصيات والطقس</div></div>
@@ -1335,58 +1307,22 @@ function showTab(id, btn) {
 let chatKeyIndex = 0;
 const chatHistory = [];
 
-function getGroqKey() {
-  const k1 = localStorage.getItem('fellah_groq_1') || '';
-  const k2 = localStorage.getItem('fellah_groq_2') || '';
-  const keys = [k1, k2].filter(Boolean);
-  if (!keys.length) return null;
-  const key = keys[chatKeyIndex % keys.length];
-  chatKeyIndex++;
-  return key;
-}
 
-function saveGroqKeys() {
-  const k1 = document.getElementById('groq-key-1').value.trim();
-  const k2 = document.getElementById('groq-key-2').value.trim();
-  
-  if (!k1 && !k2) {
-    showGroqStatus('error', '⚠️ أدخل مفتاحاً واحداً على الأقل');
-    return;
-  }
 
-  if (k1) localStorage.setItem('fellah_groq_1', k1);
-  if (k2) localStorage.setItem('fellah_groq_2', k2);
-  
-  const count = [k1,k2].filter(Boolean).length;
-  showGroqStatus('ok', `✅ تم حفظ ${count} مفتاح — التناوب مفعّل`);
-  updateAiStatus(true); document.getElementById('ai-dot').className='status-dot online'; document.getElementById('ai-status-text').textContent='✅ الذكاء AI مفعّل — جاهز';
-}
 
-function clearGroqKeys() {
-  localStorage.removeItem('fellah_groq_1');
-  localStorage.removeItem('fellah_groq_2');
-  document.getElementById('groq-key-1').value = '';
-  document.getElementById('groq-key-2').value = '';
-  showGroqStatus('off', 'تم حذف المفاتيح');
-  updateAiStatus(false);
-}
 
-function showGroqStatus(type, msg) {
-  const dot = document.getElementById('groq-dot');
-  const txt = document.getElementById('groq-status-text');
-  dot.className = 'groq-dot' + (type === 'ok' ? ' ok' : type === 'error' ? ' error' : '');
-  txt.textContent = msg;
-}
+
+
+
 
 function updateAiStatus(online) {
   const dot = document.getElementById('ai-dot');
   const txt = document.getElementById('ai-status-text');
-  if (online) {
-    dot.className = 'status-dot online';
-    txt.textContent = '✅ الذكاء AI مفعّل — Groq جاهز';
-  } else {
+  dot.className = 'status-dot online';
+  txt.textContent = '✅ الذكاء AI مفعّل — جاهز';
+} else {
     dot.className = 'status-dot';
-    txt.textContent = 'الذكاء AI — غير مفعّل (أدخل مفتاح Groq في الإعدادات)';
+    txt.textContent = '✅ الذكاء AI مفعّل — جاهز';
   }
 }
 
@@ -1401,8 +1337,6 @@ async function sendChat() {
   input.value = '';
   addMsg(text, 'user');
   chatHistory.push({ role: 'user', content: text });
-
-  const apiKey = getGroqKey();
 
   const sendBtn = document.getElementById('send-btn');
   sendBtn.innerHTML = '<div class="spinner"></div>';
@@ -1429,29 +1363,7 @@ async function sendChat() {
         reply = data.reply;
       } else throw new Error('backend unavailable');
     } catch {
-      // Fallback: direct Groq API call
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'llama3-70b-8192',
-          messages: [
-            {
-              role: 'system',
-              content: 'أنت مساعد زراعي ذكي للفلاحين الجزائريين. تتحدث بالدارجة الجزائرية أو العربية. أعطِ نصائح عملية عن الزراعة في الجزائر: المحاصيل، الأمراض، السقي، الأسمدة، الأسواق. كن مختصراً ومفيداً.'
-            },
-            ...chatHistory.slice(-6),
-            { role: 'user', content: text }
-          ],
-          max_tokens: 600
-        })
-      });
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      reply = data.choices?.[0]?.message?.content || 'عذراً، حاول مرة أخرى.';
+      throw new Error('backend error');
     }
 
     loadingDiv.remove();
@@ -1498,8 +1410,6 @@ async function analyzePlant(input) {
   reader.onload = async (e) => {
     const base64 = e.target.result.split(',')[1];
     const mediaType = file.type;
-
-    const apiKey = getGroqKey();
 
     try {
       let result;
@@ -1593,12 +1503,6 @@ document.getElementById('install-btn')?.addEventListener('click', async () => {
 // INIT
 // ===================================
 window.addEventListener('load', () => {
-  // Restore Groq keys
-  const k1 = localStorage.getItem('fellah_groq_1');
-  const k2 = localStorage.getItem('fellah_groq_2');
-  if (k1) document.getElementById('groq-key-1').value = k1;
-  if (k2) document.getElementById('groq-key-2').value = k2;
-  
   updateAiStatus(true);
   showGroqStatus('ok', '✅ الذكاء AI مفعّل — الخادم جاهز');
 
