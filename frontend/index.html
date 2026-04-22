@@ -824,6 +824,16 @@ body {
 .ecat.fruit{background:rgba(255,152,0,.2);color:#ffb74d}
 .ecat.dry{background:rgba(121,85,72,.2);color:#bcaaa4}
 
+
+body.light-theme{--bg:#f5f5f0;--card:#fff;--text:#1a1a1a;--text-muted:#666}
+.s-save{width:100%;padding:14px;background:linear-gradient(135deg,#2e7d32,#388e3c);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;margin-top:14px;box-shadow:0 4px 15px rgba(46,125,50,.35)}
+.s-reset{width:100%;padding:11px;background:transparent;color:#ef5350;border:1px solid #ef5350;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px}
+.s-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green,#4caf50);font-weight:800;margin:18px 0 8px}
+.fn-inp{width:100%;padding:12px 14px;background:var(--card,rgba(255,255,255,.06));color:var(--text,#fff);border:1px solid rgba(255,255,255,.15);border-radius:12px;font-size:15px;font-family:inherit;margin-top:6px;box-sizing:border-box}
+.fn-inp:focus{outline:none;border-color:var(--green,#4caf50)}
+.about-b{background:linear-gradient(135deg,rgba(46,125,50,.15),rgba(27,94,32,.08));border:1px solid rgba(76,175,80,.25);border-radius:14px;padding:18px;text-align:center;margin-top:12px}
+.about-b .bn{font-size:16px;font-weight:800;color:var(--green,#4caf50);margin-top:6px}
+.about-b .bc{font-size:12px;color:var(--text-muted,#aaa);margin-top:3px}
 </style>
 </head>
 
@@ -901,7 +911,7 @@ body {
 
     <div class="hero-card">
       <div id="live-clock" style="font-size:14px;color:var(--amber);font-weight:800;letter-spacing:2px;margin-bottom:6px;text-align:center">⏰ 00:00:00</div>
-      <div class="hero-greeting">🌅 صباح الخير، فلاح!</div>
+      <div class="hero-greeting">🌅 صباح الخير، <span id="hero-farmer-name">فلاح</span>!</div>
       <div class="hero-title">يوم فلاحي مثمر 🌿<br>الثلاثاء 21 أفريل 2026</div>
       <div class="hero-stats">
         <div class="hero-stat">
@@ -977,7 +987,7 @@ body {
   <!-- ===== CROPS ===== -->
   <div class="section" id="tab-crops">
     <div class="region-bar">
-      <div class="region-pill active" onclick="filterRegion(this,'وهران')">📍 وهران</div>
+      <div class="region-pill active" onclick="filterRegion(this,'وهران')">📍 معسكر</div>
       <div class="region-pill" onclick="filterRegion(this,'الجزائر')">الجزائر</div>
       <div class="region-pill" onclick="filterRegion(this,'سطيف')">سطيف</div>
       <div class="region-pill" onclick="filterRegion(this,'بسكرة')">بسكرة</div>
@@ -1230,7 +1240,7 @@ body {
         <span class="weather-emoji">☀️</span>
         <div class="weather-temp">32°</div>
         <div class="weather-desc">صحو — حار وجاف</div>
-        <div class="weather-location">📍 وهران، الجزائر</div>
+        <div class="weather-location">📍 معسكر، الجزائر</div>
       </div>
       <div class="weather-grid">
         <div class="weather-item">
@@ -1396,7 +1406,7 @@ body {
       <div class="setting-row">
         <div><div class="setting-label">الولاية</div><div class="setting-sub">لتخصيص التوصيات والطقس</div></div>
         <select class="setting-select" onchange="updateRegion(this.value)">
-          <option>أدرار</option><option>الشلف</option><option>الأغواط</option><option>أم البواقي</option><option>باتنة</option><option>بجاية</option><option>بسكرة</option><option>بشار</option><option>البليدة</option><option>البويرة</option><option>تمنراست</option><option>تبسة</option><option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option><option>الجزائر</option><option>الجلفة</option><option>جيجل</option><option>سطيف</option><option>سعيدة</option><option>سكيكدة</option><option>سيدي بلعباس</option><option>عنابة</option><option>قالمة</option><option>قسنطينة</option><option>المدية</option><option>مستغانم</option><option>المسيلة</option><option>معسكر</option><option>ورقلة</option><option selected>وهران</option><option>البيض</option><option>إليزي</option><option>برج بوعريريج</option><option>بومرداس</option><option>الطارف</option><option>تندوف</option><option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option><option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option><option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option><option>غرداية</option><option>غليزان</option><option>تيميمون</option><option>برج باجي مختار</option><option>أولاد جلال</option><option>بني عباس</option><option>عين صالح</option><option>عين قزام</option><option>توقرت</option><option>جانت</option><option>المغير</option><option>المنيعة</option>
+          <option>أدرار</option><option>الشلف</option><option>الأغواط</option><option>أم البواقي</option><option>باتنة</option><option>بجاية</option><option>بسكرة</option><option>بشار</option><option>البليدة</option><option>البويرة</option><option>تمنراست</option><option>تبسة</option><option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option><option>الجزائر</option><option>الجلفة</option><option>جيجل</option><option>سطيف</option><option>سعيدة</option><option>سكيكدة</option><option>سيدي بلعباس</option><option>عنابة</option><option>قالمة</option><option>قسنطينة</option><option>المدية</option><option>مستغانم</option><option>المسيلة</option><option selected>معسكر</option><option>ورقلة</option><option selected>وهران</option><option>البيض</option><option>إليزي</option><option>برج بوعريريج</option><option>بومرداس</option><option>الطارف</option><option>تندوف</option><option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option><option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option><option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option><option>غرداية</option><option>غليزان</option><option>تيميمون</option><option>برج باجي مختار</option><option>أولاد جلال</option><option>بني عباس</option><option>عين صالح</option><option>عين قزام</option><option>توقرت</option><option>جانت</option><option>المغير</option><option>المنيعة</option>
         </select>
       </div>
       <div class="setting-row">
@@ -1448,6 +1458,12 @@ body {
         </select>
       </div>
     </div>
+<div class="s-lbl">👤 معلوماتك</div><div class="settings-card"><div class="settings-item"><div><div class="settings-item-title">اسمك / لقبك</div><div class="settings-item-desc">يظهر في الصفحة الرئيسية</div></div><input type="text" id="farmer-name" class="fn-inp" placeholder="مثال: الحاج بلقاسم" maxlength="30"></div></div>
+<div class="s-lbl">🎨 المظهر</div><div class="settings-card"><div class="settings-item"><div><div class="settings-item-title">وضع العرض</div></div><select id="theme-select" class="settings-select"><option value="dark">🌙 داكن</option><option value="light">☀️ فاتح</option></select></div></div>
+<div class="s-lbl">ℹ️ عن التطبيق</div><div class="about-b"><div style="font-size:26px">🌾🇺🇿</div><div class="bn">فلاح v4.0</div><div class="bc">مجاني · بدون إعلانات</div><div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(76,175,80,.2)"><div style="font-size:11px;color:var(--text-muted,#aaa)">فكرة ومشروع وتطوير</div><div class="bn">KHEDIM BENYAKHLEF</div><div class="bc">Beny Joe &mdash; مبرمج جزائري 💻</div><div style="margin-top:6px;font-size:13px;font-weight:700;color:var(--green,#4caf50)">📍 محمدية، ولاية معسكر 🌾</div></div></div>
+<button class="s-save" onclick="fellahSave()">💾 حفظ الإعدادات</button>
+<button class="s-reset" onclick="fellahReset()">🔄 إعادة تعيين</button>
+
 
     <div class="card" style="background:linear-gradient(135deg,var(--green-bg),#e8f5e8)">
       <div style="text-align:center;padding:6px 0">
@@ -1987,5 +2003,5 @@ function closeNC(){document.getElementById('nc-modal').classList.remove('open');
 </div>
 </div>
 
-</body>
+<script>var FK="fellah_v4";function fellahSave(){var s={};["wilaya-select","soil-select","area-select","lang-select","weight-select","theme-select"].forEach(function(id){var e=document.getElementById(id);if(e)s[id]=e.value;});["notif-weather","notif-water","notif-price","notif-disease"].forEach(function(id){var e=document.getElementById(id);if(e)s[id]=e.checked;});var n=document.getElementById("farmer-name");if(n)s.fn=n.value;try{localStorage.setItem(FK,JSON.stringify(s));}catch(e){}fellahToast("✅ الإعدادات محفوظة!","#2e7d32");}function fellahLoad(){try{var r=localStorage.getItem(FK);if(!r)return;var s=JSON.parse(r);["wilaya-select","soil-select","area-select","lang-select","weight-select","theme-select"].forEach(function(id){var e=document.getElementById(id);if(e&&s[id])e.value=s[id];});["notif-weather","notif-water","notif-price","notif-disease"].forEach(function(id){var e=document.getElementById(id);if(e&&s[id]!==undefined)e.checked=s[id];});var n=document.getElementById("farmer-name");if(n&&s.fn){n.value=s.fn;document.querySelectorAll("#hero-farmer-name").forEach(function(el){el.textContent=s.fn;});}if(s["theme-select"]==="light")document.body.classList.add("light-theme");}catch(e){}}function fellahReset(){if(!confirm("إعادة تعيين كل الإعدادات؟"))return;try{localStorage.removeItem(FK);}catch(e){}location.reload();}function fellahToast(m,bg){var t=document.getElementById("ft");if(t)t.remove();t=document.createElement("div");t.id="ft";t.textContent=m;t.style.cssText="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:"+(bg||"#333")+";color:#fff;padding:10px 22px;border-radius:20px;font-weight:700;font-size:14px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4)";document.body.appendChild(t);setTimeout(function(){t.style.transition="opacity .5s";t.style.opacity="0";setTimeout(function(){t.remove();},500);},2500);}document.addEventListener("DOMContentLoaded",function(){fellahLoad();["wilaya-select","soil-select","area-select","lang-select","weight-select","theme-select"].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener("change",function(){fellahSave();if(id==="theme-select")document.body.classList.toggle("light-theme",e.value==="light");});});["notif-weather","notif-water","notif-price","notif-disease"].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener("change",fellahSave);});var nm=document.getElementById("farmer-name");if(nm)nm.addEventListener("input",function(){clearTimeout(nm._t);nm._t=setTimeout(fellahSave,800);document.querySelectorAll("#hero-farmer-name").forEach(function(el){el.textContent=nm.value||"فلاح";});});});</script></body>
 </html>
