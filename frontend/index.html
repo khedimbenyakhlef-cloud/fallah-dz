@@ -752,6 +752,46 @@ body {
 .groq-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
 .groq-dot.ok { background: #4caf50; }
 .groq-dot.error { background: var(--red); }
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 12px;text-align:center}
+.stat-value{font-size:26px;font-weight:800;color:var(--green);line-height:1}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+.stat-trend{font-size:12px;font-weight:700;margin-top:6px}
+.stat-trend.up{color:#4caf50}.stat-trend.down{color:#f44336}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;margin:12px 0}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(to top,var(--green),#81c784);transition:height .6s ease;min-height:4px}
+.bar-label{font-size:9px;color:var(--text-muted)}
+.field-map{display:grid;gap:8px;margin:16px 0}
+.field-cell{border-radius:10px;padding:10px 8px;font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:transform .2s;position:relative}
+.field-cell:hover{transform:scale(1.04)}
+.field-cell.tomato{background:linear-gradient(135deg,#c62828,#e53935);color:#fff}
+.field-cell.pepper{background:linear-gradient(135deg,#e65100,#fb8c00);color:#fff}
+.field-cell.cucumber{background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff}
+.field-cell.eggplant{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff}
+.field-cell.empty{background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.15);color:var(--text-muted)}
+.field-cell .field-icon{font-size:22px;display:block;margin-bottom:4px}
+.field-cell .fstatus{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%}
+.fstatus.ok{background:#4caf50;box-shadow:0 0 6px #4caf50}
+.fstatus.warn{background:#ffc107;box-shadow:0 0 6px #ffc107}
+.fstatus.danger{background:#f44336;box-shadow:0 0 6px #f44336}
+.vision-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.vision-modal.active{display:flex}
+.vision-box{background:var(--card);border-radius:20px;padding:24px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto}
+.vision-preview{width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin:12px 0;display:none}
+.vision-result{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.3);border-radius:12px;padding:14px;margin-top:12px;display:none;direction:rtl;line-height:1.7}
+.vision-loading{text-align:center;padding:20px;display:none}
+.spinner{width:40px;height:40px;border:4px solid rgba(76,175,80,.2);border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wa-banner{background:linear-gradient(135deg,#1b5e20,#2e7d32);border-radius:14px;padding:14px 16px;margin:12px 0;display:flex;align-items:center;gap:12px;cursor:pointer}
+.wa-icon{font-size:28px;flex-shrink:0}
+.wa-text strong{display:block;font-size:14px;color:#fff}
+.wa-text span{font-size:12px;color:rgba(255,255,255,.75)}
+.wa-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid rgba(255,255,255,.06)}
+.chat-sugg-btn{background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.25);color:var(--green);padding:5px 10px;border-radius:20px;font-size:11px;cursor:pointer}
+
 </style>
 </head>
 
@@ -842,7 +882,24 @@ body {
         </div>
         <div class="hero-stat">
           <div class="hero-stat-val">2</div>
-          <div class="hero-stat-label">مهام اليوم</div>
+          <div class="hero-stat-label">
+<div class="card" style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px;color:var(--amber)">🗺️ خريطة حقولي</h3>
+<span style="font-size:11px;color:var(--text-muted)">اضغط للتفاصيل</span>
+</div>
+<div class="field-map" style="grid-template-columns:repeat(3,1fr)">
+<div class="field-cell tomato" onclick="fieldDetail('طماطم','⚠️ سقي متأخر','warn')"><div class="fstatus warn"></div><span class="field-icon">🍅</span><div>طماطم</div><div style="font-size:9px;opacity:.8">منطقة A1</div></div>
+<div class="field-cell pepper" onclick="fieldDetail('فلفل','✅ صحة جيدة','ok')"><div class="fstatus ok"></div><span class="field-icon">🌶️</span><div>فلفل</div><div style="font-size:9px;opacity:.8">منطقة A2</div></div>
+<div class="field-cell cucumber" onclick="fieldDetail('خيار','⚠️ يحتاج سماد','warn')"><div class="fstatus warn"></div><span class="field-icon">🥒</span><div>خيار</div><div style="font-size:9px;opacity:.8">منطقة B1</div></div>
+<div class="field-cell eggplant" onclick="fieldDetail('باذنجان','🔴 مراقبة أمراض','danger')"><div class="fstatus danger"></div><span class="field-icon">🍆</span><div>باذنجان</div><div style="font-size:9px;opacity:.8">منطقة B2</div></div>
+<div class="field-cell empty" onclick="addField()"><span class="field-icon">➕</span><div style="font-size:10px">حقل جديد</div></div>
+<div class="field-cell empty" onclick="addField()"><span class="field-icon">➕</span><div style="font-size:10px">حقل جديد</div></div>
+</div>
+</div>
+
+<!-- مهام اليوم -->
+مهام اليوم</div>
         </div>
       </div>
     </div>
@@ -1653,6 +1710,107 @@ window.addEventListener('load', () => {
     renderCrops('all');
   }
 });
+
+function fieldDetail(name, status, level) {
+  alert('🌾 حقل ' + name + '\n' + status);
+}
+function addField() {
+  var name = prompt('اسم المحصول الجديد؟');
+  if (name) alert('✅ تم إضافة حقل ' + name);
+}
+function openVision() { document.getElementById('vision-modal').classList.add('active'); }
+function closeVision() {
+  document.getElementById('vision-modal').classList.remove('active');
+  document.getElementById('vision-result').style.display='none';
+  document.getElementById('vision-preview').style.display='none';
+  document.getElementById('vision-loading').style.display='none';
+}
+async function analyzeImage(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = async function(e) {
+    var preview = document.getElementById('vision-preview');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    document.getElementById('vision-loading').style.display = 'block';
+    document.getElementById('vision-result').style.display = 'none';
+    var base64 = e.target.result.split(',')[1];
+    var mime = file.type || 'image/jpeg';
+    try {
+      var resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: 'أنت خبير زراعي جزائري. حلل الصورة وأجب بالدارجة في هذا الشكل:\n🔍 التشخيص:\n🌿 النبات:\n⚠️ الأسباب:\n💊 العلاج:\n⏰ الإلحاحية:',
+          messages: [{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:base64}},{type:'text',text:'شخص هذه النبتة'}]}]
+        })
+      });
+      var data = await resp.json();
+      var text = data.content && data.content[0] ? data.content[0].text : 'مافيش استجابة';
+      var result = document.getElementById('vision-result');
+      result.innerHTML = text.replace(/\n/g,'<br>');
+      result.style.display = 'block';
+    } catch(err) {
+      document.getElementById('vision-result').innerHTML = '❌ خطأ في الاتصال';
+      document.getElementById('vision-result').style.display = 'block';
+    }
+    document.getElementById('vision-loading').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+function sendWhatsApp() {
+  var revenue = (document.getElementById('stat-revenue')||{}).textContent || '---';
+  var profit = (document.getElementById('stat-profit')||{}).textContent || '---';
+  var today = new Date().toLocaleDateString('ar-DZ');
+  var msg = encodeURIComponent('🌾 تقرير مزرعتي\n📅 '+today+'\n💰 الدخل: '+revenue+' دج\n📈 الربح: '+profit+' دج\n\nمن تطبيق فلاح 🇩🇿');
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+function quickAsk(text) {
+  var input = document.getElementById('chat-input');
+  if (!input) return;
+  input.value = text;
+  input.focus();
+  var btn = document.querySelector('.send-btn') || document.querySelector('[onclick*="send"]');
+  if (btn) btn.click();
+}
+function exportStats() {
+  var csv = '\uFEFFالمحصول,الإنتاج,الدخل,الربح\nطماطم,1200كغ,78000,52000\nفلفل,420كغ,50400,34000\nخيار,780كغ,35100,21000';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'fellah-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+function buildRevenueChart() {
+  var chart = document.getElementById('revenue-chart');
+  if (!chart) return;
+  var data = [{m:'أكت',v:42},{m:'نوف',v:38},{m:'ديس',v:55},{m:'جان',v:61},{m:'فيف',v:49},{m:'مار',v:71},{m:'أفر',v:85}];
+  var max = 85;
+  chart.innerHTML = data.map(function(d){
+    var pct = Math.round(d.v/max*100);
+    return '<div class="bar-wrap"><div class="bar" style="height:'+pct+'%"></div><div class="bar-label">'+d.m+'</div></div>';
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded', function() { buildRevenueChart(); });
+
 </script>
+
+<div id="vision-modal" class="vision-modal" onclick="if(event.target===this)closeVision()">
+<div class="vision-box">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h3 style="color:var(--green);font-size:16px">📸 تشخيص AI بالصورة</h3>
+<button onclick="closeVision()" style="background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer">✕</button>
+</div>
+<p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">صوّر الورقة أو الثمرة المريضة</p>
+<input type="file" id="vision-file" accept="image/*" capture="environment" style="display:none" onchange="analyzeImage(event)">
+<button onclick="document.getElementById('vision-file').click()" style="width:100%;background:linear-gradient(135deg,var(--green),#81c784);color:#fff;border:none;padding:14px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">📷 التقاط أو اختيار صورة</button>
+<img id="vision-preview" class="vision-preview" alt="preview">
+<div id="vision-loading" class="vision-loading"><div class="spinner"></div><p style="color:var(--text-muted);font-size:13px">جاري التحليل...</p></div>
+<div id="vision-result" class="vision-result"></div>
+</div>
+</div>
+
 </body>
 </html>
