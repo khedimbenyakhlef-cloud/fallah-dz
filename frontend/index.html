@@ -792,6 +792,38 @@ body {
 .chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid rgba(255,255,255,.06)}
 .chat-sugg-btn{background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.25);color:var(--green);padding:5px 10px;border-radius:20px;font-size:11px;cursor:pointer}
 
+
+.filter-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;overflow-x:auto}
+.ftab{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--text-muted);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.ftab.active,.ftab:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.new-crop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;margin-top:12px}
+.nc-card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px 10px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.nc-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.nc-card.nc-hidden{display:none}
+.nc-badge{position:absolute;top:7px;left:7px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:8px}
+.nc-badge.veg{background:rgba(76,175,80,.2);color:#81c784}
+.nc-badge.fruit{background:rgba(255,152,0,.2);color:#ffb74d}
+.nc-badge.dry{background:rgba(121,85,72,.2);color:#bcaaa4}
+.nc-emoji{font-size:30px;text-align:center;display:block;margin-bottom:5px}
+.nc-name{font-size:13px;font-weight:700;text-align:center}
+.nc-fr{font-size:10px;color:var(--text-muted);text-align:center;margin-bottom:4px}
+.nc-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted)}
+.nc-price{text-align:center;font-size:12px;font-weight:800;color:var(--green);margin-top:5px}
+.nc-season{font-size:9px;background:rgba(255,255,255,.06);border-radius:6px;padding:2px 6px;text-align:center;margin-top:4px;color:var(--text-muted)}
+.nc-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.nc-modal.open{display:flex}
+.nc-detail{background:var(--card);border-radius:20px;padding:22px;max-width:400px;width:100%;direction:rtl;max-height:85vh;overflow-y:auto}
+.nc-detail .ncd-tip{background:rgba(76,175,80,.1);border-right:3px solid var(--green);padding:10px 12px;border-radius:8px;font-size:13px;margin-top:12px;line-height:1.6}
+.nc-detail .ncd-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.extra-price-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.extra-price-table th{padding:7px 5px;text-align:right;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,.1);font-size:11px}
+.extra-price-table td{padding:7px 5px;border-bottom:1px solid rgba(255,255,255,.04)}
+.extra-price-table tr:hover td{background:rgba(255,255,255,.03)}
+.ecat{display:inline-block;font-size:9px;padding:1px 5px;border-radius:6px;font-weight:700;margin-left:3px}
+.ecat.veg{background:rgba(76,175,80,.2);color:#81c784}
+.ecat.fruit{background:rgba(255,152,0,.2);color:#ffb74d}
+.ecat.dry{background:rgba(121,85,72,.2);color:#bcaaa4}
+
 </style>
 </head>
 
@@ -1045,7 +1077,110 @@ body {
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="ci" style="background:#e3f0fb">💡</span> توصية البيع الذكية</div>
+      <div class="card-title"><span class="ci" style="background:#e3f0fb">💡</span> توصية البيع الذكية
+<div style="margin-top:16px">
+<h3 style="font-size:13px;color:var(--amber);margin-bottom:8px">📋 أسعار إضافية — 90 منتج جديد</h3>
+<div style="overflow-x:auto">
+<table class="extra-price-table">
+<thead><tr>
+<th>المنتج</th>
+<th style="text-align:center">السعر (دج/كغ)</th>
+<th style="text-align:center">الاتجاه</th>
+</tr></thead>
+<tbody><tr><td><span class="ecat veg">خضر</span>🥦 بروكلي</td><td style="text-align:center;font-weight:700">85</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🫛 قرنبيط</td><td style="text-align:center;font-weight:700">60</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🥗 خس</td><td style="text-align:center;font-weight:700">30</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +1%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 سبانخ</td><td style="text-align:center;font-weight:700">50</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 كزبرة</td><td style="text-align:center;font-weight:700">60</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 بقدونس</td><td style="text-align:center;font-weight:700">55</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 ريحان</td><td style="text-align:center;font-weight:700">90</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 زعتر</td><td style="text-align:center;font-weight:700">120</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 إكليل الجبل</td><td style="text-align:center;font-weight:700">130</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +7%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 شمر</td><td style="text-align:center;font-weight:700">70</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🥬 سلق</td><td style="text-align:center;font-weight:700">35</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🥬 ملفوف</td><td style="text-align:center;font-weight:700">28</td><td style="text-align:center;color:#f44336;font-weight:700">▼ -3%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🥬 ملفوف أحمر</td><td style="text-align:center;font-weight:700">40</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🫚 كرفس</td><td style="text-align:center;font-weight:700">65</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🟡 قرع عسلي</td><td style="text-align:center;font-weight:700">35</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🎃 قرع كبير</td><td style="text-align:center;font-weight:700">20</td><td style="text-align:center;color:#ffc107;font-weight:700">= =</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌰 طرطوف</td><td style="text-align:center;font-weight:700">45</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🫛 فاصولياء خضراء</td><td style="text-align:center;font-weight:700">75</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🟢 بازلاء</td><td style="text-align:center;font-weight:700">90</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +12%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🥜 فول أخضر</td><td style="text-align:center;font-weight:700">65</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🧅 كراث</td><td style="text-align:center;font-weight:700">50</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🧅 بصل أخضر</td><td style="text-align:center;font-weight:700">45</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🟠 جزر ملون</td><td style="text-align:center;font-weight:700">60</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>⚪ لفت</td><td style="text-align:center;font-weight:700">22</td><td style="text-align:center;color:#f44336;font-weight:700">▼ -2%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🔴 شمندر</td><td style="text-align:center;font-weight:700">30</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>⚪ فجل</td><td style="text-align:center;font-weight:700">25</td><td style="text-align:center;color:#ffc107;font-weight:700">= =</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🟤 بطاطا حلوة</td><td style="text-align:center;font-weight:700">55</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🫚 قلقاس</td><td style="text-align:center;font-weight:700">80</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 حلبة</td><td style="text-align:center;font-weight:700">110</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat veg">خضر</span>🌿 شبت</td><td style="text-align:center;font-weight:700">70</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍉 بطيخ أحمر</td><td style="text-align:center;font-weight:700">18</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍈 شمام</td><td style="text-align:center;font-weight:700">30</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍓 فراولة</td><td style="text-align:center;font-weight:700">180</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +20%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍇 عنب</td><td style="text-align:center;font-weight:700">120</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍊 برتقال</td><td style="text-align:center;font-weight:700">55</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍋 ليمون</td><td style="text-align:center;font-weight:700">80</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍎 تفاح</td><td style="text-align:center;font-weight:700">95</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍑 مشماش</td><td style="text-align:center;font-weight:700">130</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +15%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍒 كرز</td><td style="text-align:center;font-weight:700">200</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +18%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍐 إجاص</td><td style="text-align:center;font-weight:700">90</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🫐 توت بري</td><td style="text-align:center;font-weight:700">280</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +25%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🫐 توت العليق</td><td style="text-align:center;font-weight:700">300</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +22%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🌴 تمر دقلة نور</td><td style="text-align:center;font-weight:700">450</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🌴 تمر غرس</td><td style="text-align:center;font-weight:700">280</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🫒 زيتون</td><td style="text-align:center;font-weight:700">180</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍈 تين</td><td style="text-align:center;font-weight:700">120</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍑 خوخ</td><td style="text-align:center;font-weight:700">110</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍋 يوسفي</td><td style="text-align:center;font-weight:700">70</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +7%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🥜 رمان</td><td style="text-align:center;font-weight:700">90</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🥝 كيوي</td><td style="text-align:center;font-weight:700">220</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +12%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍌 موز</td><td style="text-align:center;font-weight:700">120</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🥭 مانغو</td><td style="text-align:center;font-weight:700">280</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍍 أناناس</td><td style="text-align:center;font-weight:700">380</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🥑 أفوكادو</td><td style="text-align:center;font-weight:700">350</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +30%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🍈 بطيخ أصفر</td><td style="text-align:center;font-weight:700">35</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>⚪ تفاح أبيض</td><td style="text-align:center;font-weight:700">110</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🔴 تفاح أحمر</td><td style="text-align:center;font-weight:700">120</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +7%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🟡 سفرجل</td><td style="text-align:center;font-weight:700">75</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🔵 برقوق</td><td style="text-align:center;font-weight:700">95</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +9%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🟤 عوينة</td><td style="text-align:center;font-weight:700">85</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🟠 نارنج</td><td style="text-align:center;font-weight:700">45</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🟡 ليمون أصفر كبير</td><td style="text-align:center;font-weight:700">70</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🟢 ليمون أخضر</td><td style="text-align:center;font-weight:700">95</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat fruit">فواكه</span>🌿 كاكاو معمر</td><td style="text-align:center;font-weight:700">60</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🫘 فاصولياء جافة</td><td style="text-align:center;font-weight:700">180</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟡 عدس أحمر</td><td style="text-align:center;font-weight:700">220</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +9%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟢 عدس أخضر</td><td style="text-align:center;font-weight:700">200</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🥜 حمص</td><td style="text-align:center;font-weight:700">210</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🫘 لوبياء</td><td style="text-align:center;font-weight:700">160</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟤 فول جاف</td><td style="text-align:center;font-weight:700">140</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🫘 ماش</td><td style="text-align:center;font-weight:700">220</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟡 ترمس</td><td style="text-align:center;font-weight:700">100</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 قمح صلب</td><td style="text-align:center;font-weight:700">45</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +3%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 قمح لين</td><td style="text-align:center;font-weight:700">42</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 شعير</td><td style="text-align:center;font-weight:700">38</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +2%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 شوفان</td><td style="text-align:center;font-weight:700">55</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 ذرة صفراء</td><td style="text-align:center;font-weight:700">32</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +1%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 دخن</td><td style="text-align:center;font-weight:700">60</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌾 سرغم</td><td style="text-align:center;font-weight:700">35</td><td style="text-align:center;color:#ffc107;font-weight:700">= =</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌻 عباد الشمس</td><td style="text-align:center;font-weight:700">55</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +4%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>⚪ سمسم</td><td style="text-align:center;font-weight:700">350</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟤 كتان</td><td style="text-align:center;font-weight:700">180</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌿 نيلة</td><td style="text-align:center;font-weight:700">250</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +7%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🫘 صويا</td><td style="text-align:center;font-weight:700">90</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟢 بسلة جافة</td><td style="text-align:center;font-weight:700">170</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌿 قرطم</td><td style="text-align:center;font-weight:700">200</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +6%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟡 لوز</td><td style="text-align:center;font-weight:700">900</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +10%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟤 جوز</td><td style="text-align:center;font-weight:700">700</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +8%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🟤 بندق</td><td style="text-align:center;font-weight:700">600</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +7%</td></tr>
+<tr><td><span class="ecat dry">بقول</span>🌰 كستناء</td><td style="text-align:center;font-weight:700">400</td><td style="text-align:center;color:#4caf50;font-weight:700">▲ +5%</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
       <div class="alert success"><span class="alert-icon">🍅</span> طماطم — بع الآن! السعر في أعلى مستوياته هذا الشهر</div>
       <div class="alert info"><span class="alert-icon">🌶️</span> فلفل — انتظر أسبوعاً، توقع ارتفاع إضافي 10%</div>
       <div class="alert danger"><span class="alert-icon">🥬</span> كوسة — السوق مشبع، لا تبع الآن</div>
@@ -1795,6 +1930,30 @@ function buildRevenueChart() {
 }
 document.addEventListener('DOMContentLoaded', function() { buildRevenueChart(); });
 
+
+var NC_DATA=[{"e":"🥦","ar":"بروكلي","fr":"Brocoli","days":80,"water":"منتظم","price":85,"trend":"+10%","season":"خريف/شتاء","cat":"veg","tip":"يحب الجو البارد، قطف قبل التفتح"},{"e":"🫛","ar":"قرنبيط","fr":"Chou-fleur","days":90,"water":"منتظم","price":60,"trend":"+2%","season":"خريف/شتاء","cat":"veg","tip":"احمِ الرأس من الشمس بالأوراق"},{"e":"🥗","ar":"خس","fr":"Laitue","days":45,"water":"منتظم","price":30,"trend":"+1%","season":"ربيع/خريف","cat":"veg","tip":"ينمو سريع مناسب للمزارع الصغيرة"},{"e":"🌿","ar":"سبانخ","fr":"Épinard","days":40,"water":"منتظم","price":50,"trend":"+3%","season":"خريف/شتاء","cat":"veg","tip":"يحب البرودة، الحصاد المستمر يزيد الإنتاج"},{"e":"🌿","ar":"كزبرة","fr":"Coriandre","days":25,"water":"منتظم","price":60,"trend":"+5%","season":"ربيع/خريف","cat":"veg","tip":"ينبت سريع، قطف قبل الإزهار"},{"e":"🌿","ar":"بقدونس","fr":"Persil","days":30,"water":"منتظم","price":55,"trend":"+3%","season":"كل الفصول","cat":"veg","tip":"اقطع باستمرار لتشجيع النمو"},{"e":"🌿","ar":"ريحان","fr":"Basilic","days":28,"water":"منتظم","price":90,"trend":"+8%","season":"ربيع/صيف","cat":"veg","tip":"يحب الحرارة، لا يتحمل الصقيع"},{"e":"🌿","ar":"زعتر","fr":"Thym","days":90,"water":"قليل","price":120,"trend":"+10%","season":"ربيع","cat":"veg","tip":"معمر، مقاوم للجفاف، طيب الرائحة"},{"e":"🌿","ar":"إكليل الجبل","fr":"Romarin","days":120,"water":"قليل","price":130,"trend":"+7%","season":"ربيع","cat":"veg","tip":"شجيرة معمرة مقاومة للجفاف"},{"e":"🌿","ar":"شمر","fr":"Fenouil","days":65,"water":"متوسط","price":70,"trend":"+5%","season":"خريف","cat":"veg","tip":"يُستعمل دواء وطعام"},{"e":"🥬","ar":"سلق","fr":"Bette","days":55,"water":"منتظم","price":35,"trend":"+2%","season":"خريف/شتاء","cat":"veg","tip":"يتحمل الصقيع، حصاد متكرر"},{"e":"🥬","ar":"ملفوف","fr":"Chou","days":90,"water":"منتظم","price":28,"trend":"-3%","season":"خريف/شتاء","cat":"veg","tip":"يحب البرودة، يُزرع شتلة"},{"e":"🥬","ar":"ملفوف أحمر","fr":"Chou rouge","days":95,"water":"منتظم","price":40,"trend":"+4%","season":"خريف/شتاء","cat":"veg","tip":"غني بمضادات الأكسدة"},{"e":"🫚","ar":"كرفس","fr":"Céleri","days":100,"water":"كثير","price":65,"trend":"+6%","season":"خريف","cat":"veg","tip":"يحتاج تربة رطبة باستمرار"},{"e":"🟡","ar":"قرع عسلي","fr":"Butternut","days":100,"water":"متوسط","price":35,"trend":"+2%","season":"صيف","cat":"veg","tip":"يحتاج مساحة كبيرة"},{"e":"🎃","ar":"قرع كبير","fr":"Citrouille","days":110,"water":"متوسط","price":20,"trend":"=","season":"صيف","cat":"veg","tip":"مقاوم للجفاف نسبياً"},{"e":"🌰","ar":"طرطوف","fr":"Artichaut","days":180,"water":"منتظم","price":45,"trend":"+6%","season":"شتاء/ربيع","cat":"veg","tip":"معمر، يعطي إنتاجاً لسنوات"},{"e":"🫛","ar":"فاصولياء خضراء","fr":"Haricot vert","days":55,"water":"منتظم","price":75,"trend":"+8%","season":"ربيع/صيف","cat":"veg","tip":"تحتاج تعريش، اقطف مبكراً"},{"e":"🟢","ar":"بازلاء","fr":"Petits pois","days":70,"water":"منتظم","price":90,"trend":"+12%","season":"شتاء/ربيع","cat":"veg","tip":"يحب البرودة، فصلية ممتازة"},{"e":"🥜","ar":"فول أخضر","fr":"Fève verte","days":120,"water":"متوسط","price":65,"trend":"+4%","season":"شتاء/ربيع","cat":"veg","tip":"يُثري التربة بالآزوت"},{"e":"🧅","ar":"كراث","fr":"Poireau","days":130,"water":"منتظم","price":50,"trend":"+3%","season":"خريف/شتاء","cat":"veg","tip":"يحب التربة الخصبة العميقة"},{"e":"🧅","ar":"بصل أخضر","fr":"Cébette","days":60,"water":"منتظم","price":45,"trend":"+2%","season":"ربيع/خريف","cat":"veg","tip":"يُقطف مبكراً قبل تكوين البصلة"},{"e":"🟠","ar":"جزر ملون","fr":"Carotte colorée","days":80,"water":"منتظم","price":60,"trend":"+8%","season":"خريف/شتاء","cat":"veg","tip":"أصناف بنفسجية وصفراء وبرتقالية"},{"e":"⚪","ar":"لفت","fr":"Navet","days":60,"water":"منتظم","price":22,"trend":"-2%","season":"خريف/شتاء","cat":"veg","tip":"سريع النمو مقاوم للبرد"},{"e":"🔴","ar":"شمندر","fr":"Betterave","days":70,"water":"منتظم","price":30,"trend":"+3%","season":"خريف/شتاء","cat":"veg","tip":"تربة رخوة عميقة"},{"e":"⚪","ar":"فجل","fr":"Radis","days":25,"water":"منتظم","price":25,"trend":"=","season":"ربيع/خريف","cat":"veg","tip":"أسرع خضروات للحصاد"},{"e":"🟤","ar":"بطاطا حلوة","fr":"Patate douce","days":110,"water":"متوسط","price":55,"trend":"+10%","season":"ربيع/صيف","cat":"veg","tip":"مقاومة للجفاف، تخزين ممتاز"},{"e":"🫚","ar":"قلقاس","fr":"Taro","days":180,"water":"كثير","price":80,"trend":"+5%","season":"ربيع/صيف","cat":"veg","tip":"يحب الرطوبة والظل الجزئي"},{"e":"🌿","ar":"حلبة","fr":"Fenugrec","days":100,"water":"قليل","price":110,"trend":"+6%","season":"ربيع/خريف","cat":"veg","tip":"تُستعمل بذوراً وأوراقاً"},{"e":"🌿","ar":"شبت","fr":"Aneth","days":40,"water":"منتظم","price":70,"trend":"+4%","season":"ربيع/خريف","cat":"veg","tip":"يُستعمل في المخللات"},{"e":"🍉","ar":"بطيخ أحمر","fr":"Pastèque","days":90,"water":"كثير","price":18,"trend":"+5%","season":"صيف","cat":"fruit","tip":"يحتاج حرارة عالية"},{"e":"🍈","ar":"شمام","fr":"Melon","days":85,"water":"متوسط","price":30,"trend":"+3%","season":"صيف","cat":"fruit","tip":"خفف السقي عند النضج"},{"e":"🍓","ar":"فراولة","fr":"Fraise","days":60,"water":"منتظم","price":180,"trend":"+20%","season":"شتاء/ربيع","cat":"fruit","tip":"يحتاج تغطية في الصقيع"},{"e":"🍇","ar":"عنب","fr":"Raisin","days":150,"water":"متوسط","price":120,"trend":"+8%","season":"صيف","cat":"fruit","tip":"تقليم سنوي ضروري"},{"e":"🍊","ar":"برتقال","fr":"Orange","days":300,"water":"منتظم","price":55,"trend":"+4%","season":"شتاء","cat":"fruit","tip":"الري بالتنقيط مثالي"},{"e":"🍋","ar":"ليمون","fr":"Citron","days":270,"water":"منتظم","price":80,"trend":"+6%","season":"كل الفصول","cat":"fruit","tip":"مثالي لمناخ وهران"},{"e":"🍎","ar":"تفاح","fr":"Pomme","days":180,"water":"منتظم","price":95,"trend":"+5%","season":"خريف","cat":"fruit","tip":"أصناف جزائرية متعددة"},{"e":"🍑","ar":"مشماش","fr":"Abricot","days":120,"water":"متوسط","price":130,"trend":"+15%","season":"ربيع/صيف","cat":"fruit","tip":"شجرة جزائرية أصيلة"},{"e":"🍒","ar":"كرز","fr":"Cerise","days":120,"water":"متوسط","price":200,"trend":"+18%","season":"ربيع/صيف","cat":"fruit","tip":"يحب البرودة الشتوية"},{"e":"🍐","ar":"إجاص","fr":"Poire","days":160,"water":"منتظم","price":90,"trend":"+4%","season":"خريف","cat":"fruit","tip":"التقليم يزيد الإنتاج"},{"e":"🫐","ar":"توت بري","fr":"Myrtille","days":180,"water":"منتظم","price":280,"trend":"+25%","season":"صيف","cat":"fruit","tip":"سوق متنامٍ في الجزائر"},{"e":"🫐","ar":"توت العليق","fr":"Framboise","days":150,"water":"منتظم","price":300,"trend":"+22%","season":"صيف","cat":"fruit","tip":"يحب التربة الحمضية"},{"e":"🌴","ar":"تمر دقلة نور","fr":"Deglet Nour","days":200,"water":"قليل","price":450,"trend":"+8%","season":"خريف","cat":"fruit","tip":"أفضل تمر في العالم"},{"e":"🌴","ar":"تمر غرس","fr":"Ghars","days":195,"water":"قليل","price":280,"trend":"+5%","season":"خريف","cat":"fruit","tip":"تمر جزائري أصيل لين"},{"e":"🫒","ar":"زيتون","fr":"Olive","days":180,"water":"قليل","price":180,"trend":"+6%","season":"خريف","cat":"fruit","tip":"شجرة معمرة مقاومة للجفاف"},{"e":"🍈","ar":"تين","fr":"Figue","days":150,"water":"قليل","price":120,"trend":"+5%","season":"صيف/خريف","cat":"fruit","tip":"يتحمل الجفاف"},{"e":"🍑","ar":"خوخ","fr":"Pêche","days":120,"water":"متوسط","price":110,"trend":"+10%","season":"صيف","cat":"fruit","tip":"أصناف متعددة مناسبة للجزائر"},{"e":"🍋","ar":"يوسفي","fr":"Mandarine","days":280,"water":"منتظم","price":70,"trend":"+7%","season":"شتاء","cat":"fruit","tip":"شجرة صغيرة للحديقة"},{"e":"🥜","ar":"رمان","fr":"Grenade","days":150,"water":"قليل","price":90,"trend":"+4%","season":"خريف","cat":"fruit","tip":"مقاومة للجفاف"},{"e":"🥝","ar":"كيوي","fr":"Kiwi","days":365,"water":"منتظم","price":220,"trend":"+12%","season":"خريف","cat":"fruit","tip":"يحتاج تعريش قوي"},{"e":"🍌","ar":"موز","fr":"Banane","days":300,"water":"كثير","price":120,"trend":"+3%","season":"كل الفصول","cat":"fruit","tip":"يحتاج حرارة وماء كثير"},{"e":"🥭","ar":"مانغو","fr":"Mangue","days":365,"water":"متوسط","price":280,"trend":"+10%","season":"صيف","cat":"fruit","tip":"يُزرع في الجنوب"},{"e":"🍍","ar":"أناناس","fr":"Ananas","days":540,"water":"متوسط","price":380,"trend":"+5%","season":"صيف","cat":"fruit","tip":"إنتاج تجريبي في الجزائر"},{"e":"🥑","ar":"أفوكادو","fr":"Avocat","days":365,"water":"منتظم","price":350,"trend":"+30%","season":"صيف/خريف","cat":"fruit","tip":"طلب متزايد جداً في الجزائر"},{"e":"🍈","ar":"بطيخ أصفر","fr":"Pastèque jaune","days":85,"water":"متوسط","price":35,"trend":"+8%","season":"صيف","cat":"fruit","tip":"حلو جداً وقليل السقي"},{"e":"⚪","ar":"تفاح أبيض","fr":"Pomme golden","days":180,"water":"منتظم","price":110,"trend":"+6%","season":"خريف","cat":"fruit","tip":"أكثر الأصناف طلباً"},{"e":"🔴","ar":"تفاح أحمر","fr":"Pomme rouge","days":185,"water":"منتظم","price":120,"trend":"+7%","season":"خريف","cat":"fruit","tip":"صنف ستاركينغ الأشهر"},{"e":"🟡","ar":"سفرجل","fr":"Coing","days":150,"water":"متوسط","price":75,"trend":"+3%","season":"خريف","cat":"fruit","tip":"يُستعمل مربى ودواء"},{"e":"🔵","ar":"برقوق","fr":"Prune","days":130,"water":"متوسط","price":95,"trend":"+9%","season":"صيف","cat":"fruit","tip":"يُجفف لإنتاج البرقوق المجفف"},{"e":"🟤","ar":"عوينة","fr":"Jujube","days":150,"water":"قليل","price":85,"trend":"+4%","season":"خريف","cat":"fruit","tip":"شجرة جزائرية مقاومة للجفاف"},{"e":"🟠","ar":"نارنج","fr":"Bigarade","days":270,"water":"منتظم","price":45,"trend":"+2%","season":"شتاء","cat":"fruit","tip":"يُستعمل للزهر والعطور"},{"e":"🟡","ar":"ليمون أصفر كبير","fr":"Citron jaune","days":270,"water":"منتظم","price":70,"trend":"+5%","season":"شتاء/ربيع","cat":"fruit","tip":"حموضة عالية"},{"e":"🟢","ar":"ليمون أخضر","fr":"Citron vert/Lime","days":260,"water":"منتظم","price":95,"trend":"+10%","season":"كل الفصول","cat":"fruit","tip":"طلب متزايد للمطاعم"},{"e":"🌿","ar":"كاكاو معمر","fr":"Figuier de Barbarie","days":365,"water":"قليل","price":60,"trend":"+5%","season":"صيف","cat":"fruit","tip":"الهندي، مقاوم جداً للجفاف"},{"e":"🫘","ar":"فاصولياء جافة","fr":"Haricot sec","days":110,"water":"قليل","price":180,"trend":"+5%","season":"صيف","cat":"dry","tip":"اترك القرون حتى تجف"},{"e":"🟡","ar":"عدس أحمر","fr":"Lentille rouge","days":95,"water":"قليل","price":220,"trend":"+9%","season":"شتاء/ربيع","cat":"dry","tip":"طبخ سريع بدون نقع"},{"e":"🟢","ar":"عدس أخضر","fr":"Lentille verte","days":100,"water":"قليل","price":200,"trend":"+8%","season":"شتاء/ربيع","cat":"dry","tip":"يحسن التربة بالآزوت"},{"e":"🥜","ar":"حمص","fr":"Pois chiche","days":110,"water":"قليل","price":210,"trend":"+6%","season":"شتاء/ربيع","cat":"dry","tip":"إنتاج جيد في سطيف"},{"e":"🫘","ar":"لوبياء","fr":"Niébé","days":70,"water":"قليل","price":160,"trend":"+4%","season":"صيف","cat":"dry","tip":"مقاوم للحرارة"},{"e":"🟤","ar":"فول جاف","fr":"Fève sèche","days":150,"water":"متوسط","price":140,"trend":"+3%","season":"شتاء/ربيع","cat":"dry","tip":"اترك القرون حتى تسود"},{"e":"🫘","ar":"ماش","fr":"Haricot mungo","days":65,"water":"قليل","price":220,"trend":"+10%","season":"صيف","cat":"dry","tip":"محصول إضافي سريع"},{"e":"🟡","ar":"ترمس","fr":"Lupin","days":120,"water":"قليل","price":100,"trend":"+2%","season":"شتاء","cat":"dry","tip":"وجبة شعبية جزائرية"},{"e":"🌾","ar":"قمح صلب","fr":"Blé dur","days":150,"water":"منتظم","price":45,"trend":"+3%","season":"شتاء","cat":"dry","tip":"المحصول الوطني الأول"},{"e":"🌾","ar":"قمح لين","fr":"Blé tendre","days":145,"water":"منتظم","price":42,"trend":"+2%","season":"شتاء","cat":"dry","tip":"للخبز والمعجنات"},{"e":"🌾","ar":"شعير","fr":"Orge","days":130,"water":"قليل","price":38,"trend":"+2%","season":"شتاء","cat":"dry","tip":"مقاوم للجفاف أكثر من القمح"},{"e":"🌾","ar":"شوفان","fr":"Avoine","days":120,"water":"منتظم","price":55,"trend":"+5%","season":"شتاء","cat":"dry","tip":"غني بالألياف، سوق صحي ناشئ"},{"e":"🌾","ar":"ذرة صفراء","fr":"Maïs grain","days":120,"water":"كثير","price":32,"trend":"+1%","season":"ربيع/صيف","cat":"dry","tip":"علف وغذاء"},{"e":"🌾","ar":"دخن","fr":"Millet","days":90,"water":"قليل","price":60,"trend":"+4%","season":"صيف","cat":"dry","tip":"مقاوم للجفاف الشديد"},{"e":"🌾","ar":"سرغم","fr":"Sorgho","days":120,"water":"قليل","price":35,"trend":"=","season":"صيف","cat":"dry","tip":"علف ممتاز للماشية"},{"e":"🌻","ar":"عباد الشمس","fr":"Tournesol","days":100,"water":"قليل","price":55,"trend":"+4%","season":"ربيع/صيف","cat":"dry","tip":"زيت ممتاز"},{"e":"⚪","ar":"سمسم","fr":"Sésame","days":100,"water":"قليل","price":350,"trend":"+8%","season":"صيف","cat":"dry","tip":"يحب الحرارة"},{"e":"🟤","ar":"كتان","fr":"Lin","days":100,"water":"متوسط","price":180,"trend":"+6%","season":"ربيع","cat":"dry","tip":"للزيت والألياف"},{"e":"🌿","ar":"نيلة","fr":"Arachide","days":120,"water":"متوسط","price":250,"trend":"+7%","season":"ربيع/صيف","cat":"dry","tip":"الفول السوداني، ينمو في الجنوب"},{"e":"🫘","ar":"صويا","fr":"Soja","days":110,"water":"منتظم","price":90,"trend":"+5%","season":"ربيع/صيف","cat":"dry","tip":"بروتين عالٍ، محصول المستقبل"},{"e":"🟢","ar":"بسلة جافة","fr":"Pois sec","days":100,"water":"قليل","price":170,"trend":"+5%","season":"شتاء/ربيع","cat":"dry","tip":"بروتين عالٍ"},{"e":"🌿","ar":"قرطم","fr":"Carthame","days":110,"water":"قليل","price":200,"trend":"+6%","season":"ربيع","cat":"dry","tip":"زيت طبي وصبغة طبيعية"},{"e":"🟡","ar":"لوز","fr":"Amande","days":180,"water":"قليل","price":900,"trend":"+10%","season":"ربيع/صيف","cat":"dry","tip":"شجرة معمرة جزائرية"},{"e":"🟤","ar":"جوز","fr":"Noix","days":200,"water":"متوسط","price":700,"trend":"+8%","season":"خريف","cat":"dry","tip":"شجرة طويلة العمر"},{"e":"🟤","ar":"بندق","fr":"Noisette","days":180,"water":"متوسط","price":600,"trend":"+7%","season":"خريف","cat":"dry","tip":"يحب المناخ المعتدل"},{"e":"🌰","ar":"كستناء","fr":"Châtaigne","days":200,"water":"منتظم","price":400,"trend":"+5%","season":"خريف","cat":"dry","tip":"شجرة معمرة للجبال"}];
+function filterNC(cat,btn){
+  document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.nc-card').forEach(function(card){
+    if(cat==='all'||card.dataset.cat===cat)card.classList.remove('nc-hidden');
+    else card.classList.add('nc-hidden');
+  });
+}
+function openNC(i){
+  var cu=NC_DATA[i];if(!cu)return;
+  document.getElementById('ncm-emoji').textContent=cu.e;
+  document.getElementById('ncm-name').textContent=cu.ar;
+  document.getElementById('ncm-fr').textContent=cu.fr;
+  document.getElementById('ncm-days').textContent=cu.days+' يوم';
+  document.getElementById('ncm-water').textContent=cu.water;
+  document.getElementById('ncm-price').textContent=cu.price+' دج/كغ';
+  document.getElementById('ncm-season').textContent=cu.season;
+  document.getElementById('ncm-tip').textContent='💡 '+cu.tip;
+  document.getElementById('nc-modal').classList.add('open');
+}
+function closeNC(){document.getElementById('nc-modal').classList.remove('open');}
+
 </script>
 
 <div id="vision-modal" class="vision-modal" onclick="if(event.target===this)closeVision()">
@@ -1809,6 +1968,22 @@ document.addEventListener('DOMContentLoaded', function() { buildRevenueChart(); 
 <img id="vision-preview" class="vision-preview" alt="preview">
 <div id="vision-loading" class="vision-loading"><div class="spinner"></div><p style="color:var(--text-muted);font-size:13px">جاري التحليل...</p></div>
 <div id="vision-result" class="vision-result"></div>
+</div>
+</div>
+
+
+<div id="nc-modal" class="nc-modal" onclick="if(event.target===this)closeNC()">
+<div class="nc-detail">
+<div style="display:flex;justify-content:flex-end"><button onclick="closeNC()" style="background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer">✕</button></div>
+<div id="ncm-emoji" style="font-size:52px;text-align:center;display:block;margin-bottom:6px"></div>
+<h3 id="ncm-name" style="text-align:center;font-size:19px;margin-bottom:3px"></h3>
+<div id="ncm-fr" style="text-align:center;color:var(--text-muted);font-size:12px;margin-bottom:14px"></div>
+<div class="ncd-row"><span>⏱ مدة النضج</span><span id="ncm-days"></span></div>
+<div class="ncd-row"><span>💧 حاجة الماء</span><span id="ncm-water"></span></div>
+<div class="ncd-row"><span>💰 سعر السوق</span><span id="ncm-price" style="color:var(--green);font-weight:800"></span></div>
+<div class="ncd-row"><span>📅 موسم الزراعة</span><span id="ncm-season"></span></div>
+<div class="ncd-tip" id="ncm-tip"></div>
+<button onclick="closeNC()" style="margin-top:14px;width:100%;background:var(--green);color:#fff;border:none;padding:10px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer">✅ فهمت</button>
 </div>
 </div>
 
