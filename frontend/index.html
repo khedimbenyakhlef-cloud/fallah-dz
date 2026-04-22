@@ -828,6 +828,7 @@ body {
     </div>
 
     <div class="hero-card">
+      <div id="live-clock" style="font-size:14px;color:var(--amber);font-weight:800;letter-spacing:2px;margin-bottom:6px;text-align:center">⏰ 00:00:00</div>
       <div class="hero-greeting">🌅 صباح الخير، فلاح!</div>
       <div class="hero-title">يوم فلاحي مثمر 🌿<br>الثلاثاء 21 أفريل 2026</div>
       <div class="hero-stats">
@@ -963,7 +964,7 @@ body {
         <span class="ci" style="background:#e8f5e9">📈</span> أسعار السوق اليوم
         <span class="badge" style="margin-right:auto">وهران</span>
       </div>
-      <p style="font-size:11px;color:var(--text-muted);margin-bottom:12px">آخر تحديث: اليوم الثلاثاء 21 أفريل 2026</p>
+      <p style="font-size:11px;color:var(--text-muted);margin-bottom:12px">آخر تحديث: <span id="last-price-update">جاري...</span> <span id="price-countdown" style="color:var(--amber);font-size:10px"></span></p>
       <table class="price-table" id="price-table">
         <thead>
           <tr>
@@ -1494,28 +1495,162 @@ document.getElementById('install-btn')?.addEventListener('click', async () => {
 });
 
 // ===================================
+// DONNEES: 50 VARIETES
+// ===================================
+const ALL_CROPS = [
+  {e:'🍅',n:'طماطم',i:'⏱ 70 يوم | 💧 منتظم',p:65,t:'up',cat:'legume',r:true},
+  {e:'🌶️',n:'فلفل',i:'⏱ 90 يوم | 💧 متوسط',p:120,t:'up',cat:'legume',r:false},
+  {e:'🥒',n:'خيار',i:'⏱ 50 يوم | 💧 كثير',p:45,t:'up',cat:'legume',r:true},
+  {e:'🥬',n:'كوسة',i:'⏱ 45 يوم | 💧 متوسط',p:18,t:'down',cat:'legume',r:false},
+  {e:'🍆',n:'باذنجان',i:'⏱ 80 يوم | 💧 متوسط',p:38,t:'up',cat:'legume',r:false},
+  {e:'🧅',n:'بصل',i:'⏱ 120 يوم | 💧 قليل',p:28,t:'flat',cat:'legume',r:false},
+  {e:'🧄',n:'ثوم',i:'⏱ 150 يوم | 💧 قليل',p:320,t:'up',cat:'legume',r:true},
+  {e:'🥕',n:'جزر',i:'⏱ 90 يوم | 💧 منتظم',p:42,t:'up',cat:'legume',r:false},
+  {e:'🥔',n:'بطاطا',i:'⏱ 100 يوم | 💧 منتظم',p:35,t:'down',cat:'legume',r:false},
+  {e:'🥦',n:'قرنبيط',i:'⏱ 80 يوم | 💧 منتظم',p:55,t:'up',cat:'legume',r:false},
+  {e:'🥬',n:'سبانخ',i:'⏱ 45 يوم | 💧 كثير',p:40,t:'up',cat:'legume',r:true},
+  {e:'🌽',n:'ذرة',i:'⏱ 90 يوم | 💧 كثير',p:22,t:'flat',cat:'legume',r:false},
+  {e:'🫑',n:'فلفل حلو',i:'⏱ 85 يوم | 💧 متوسط',p:95,t:'up',cat:'legume',r:false},
+  {e:'🥜',n:'فول',i:'⏱ 75 يوم | 💧 متوسط',p:60,t:'up',cat:'legume',r:true},
+  {e:'🫘',n:'جلبانة',i:'⏱ 70 يوم | 💧 منتظم',p:75,t:'up',cat:'legume',r:false},
+  {e:'🥬',n:'كرنب',i:'⏱ 90 يوم | 💧 منتظم',p:30,t:'flat',cat:'legume',r:false},
+  {e:'🫘',n:'لوبية',i:'⏱ 65 يوم | 💧 متوسط',p:85,t:'up',cat:'legume',r:false},
+  {e:'🍉',n:'بطيخ',i:'⏱ 90 يوم | 💧 كثير',p:25,t:'up',cat:'fruit',r:true},
+  {e:'🍈',n:'شمام',i:'⏱ 80 يوم | 💧 متوسط',p:40,t:'up',cat:'fruit',r:true},
+  {e:'🍇',n:'عنب',i:'⏱ 150 يوم | 💧 منتظم',p:120,t:'up',cat:'fruit',r:false},
+  {e:'🍊',n:'برتقال',i:'⏱ 365 يوم | 💧 منتظم',p:55,t:'up',cat:'fruit',r:false},
+  {e:'🍋',n:'ليمون',i:'⏱ 365 يوم | 💧 قليل',p:80,t:'up',cat:'fruit',r:false},
+  {e:'🍑',n:'خوخ',i:'⏱ 180 يوم | 💧 منتظم',p:95,t:'up',cat:'fruit',r:false},
+  {e:'🍒',n:'كرز',i:'⏱ 180 يوم | 💧 منتظم',p:180,t:'up',cat:'fruit',r:false},
+  {e:'🍎',n:'تفاح',i:'⏱ 180 يوم | 💧 منتظم',p:110,t:'flat',cat:'fruit',r:false},
+  {e:'🍓',n:'فراولة',i:'⏱ 90 يوم | 💧 كثير',p:250,t:'up',cat:'fruit',r:true},
+  {e:'🪵',n:'زيتون',i:'⏱ 365 يوم | 💧 قليل',p:150,t:'up',cat:'fruit',r:true},
+  {e:'🌴',n:'تمر',i:'⏱ 365 يوم | 💧 قليل',p:400,t:'up',cat:'fruit',r:true},
+  {e:'🍈',n:'رمان',i:'⏱ 200 يوم | 💧 قليل',p:160,t:'up',cat:'fruit',r:false},
+  {e:'🍈',n:'تين',i:'⏱ 180 يوم | 💧 قليل',p:120,t:'up',cat:'fruit',r:false},
+  {e:'📦',n:'برقوق',i:'⏱ 150 يوم | 💧 منتظم',p:130,t:'up',cat:'fruit',r:false},
+  {e:'🍍',n:'موز',i:'⏱ 300 يوم | 💧 كثير',p:85,t:'flat',cat:'fruit',r:false},
+  {e:'🌾',n:'قمح',i:'⏱ 120 يوم | 💧 قليل',p:45,t:'up',cat:'cereale',r:true},
+  {e:'🌾',n:'شعير',i:'⏱ 110 يوم | 💧 قليل',p:38,t:'flat',cat:'cereale',r:false},
+  {e:'🌻',n:'عباد الشمس',i:'⏱ 110 يوم | 💧 متوسط',p:55,t:'up',cat:'cereale',r:true},
+  {e:'🌿',n:'نعناع',i:'⏱ 30 يوم | 💧 منتظم',p:80,t:'up',cat:'aromatique',r:true},
+  {e:'🌿',n:'كزبرة',i:'⏱ 40 يوم | 💧 منتظم',p:60,t:'up',cat:'aromatique',r:false},
+  {e:'🌿',n:'بقدونس',i:'⏱ 45 يوم | 💧 منتظم',p:50,t:'flat',cat:'aromatique',r:false},
+  {e:'🌿',n:'زعتر',i:'⏱ 90 يوم | 💧 قليل',p:150,t:'up',cat:'aromatique',r:true},
+  {e:'🌿',n:'ريحان',i:'⏱ 35 يوم | 💧 منتظم',p:90,t:'up',cat:'aromatique',r:true},
+];
+
+function renderCrops(filter) {
+  const grid = document.getElementById('crops-grid');
+  if (!grid) return;
+  const list = filter === 'all' ? ALL_CROPS : ALL_CROPS.filter(x => x.cat === filter);
+  grid.innerHTML = list.map(x => `<div class="crop-card ${x.r?'recommended':''}">
+    ${x.r?'<div class="crop-badge">⭐ موصى</div>':''}
+    <span class="crop-emoji">${x.e}</span>
+    <div class="crop-name">${x.n}</div>
+    <div class="crop-info">${x.i}</div>
+    <div class="crop-price">${x.p} دج/كغ <span class="${x.t==='up'?'trend-up':x.t==='down'?'trend-down':''}">${x.t==='up'?'▲':x.t==='down'?'▼':'='}</span></div>
+  </div>`).join('');
+}
+
+function filterCrops(btn, cat) {
+  document.querySelectorAll('#crop-filter-bar button').forEach(b => { b.style.background=''; b.style.color=''; });
+  btn.style.background = 'var(--green-mid)';
+  btn.style.color = 'white';
+  renderCrops(cat);
+}
+
+// PRIX AUTO 30 MIN
+const PRICE_BASE = [
+  {e:'🍅',n:'طماطم',b:65},{e:'🥔',n:'بطاطا',b:35},{e:'🌶️',n:'فلفل',b:120},
+  {e:'🧅',n:'بصل',b:28},{e:'🥕',n:'جزر',b:42},{e:'🥬',n:'كوسة',b:18},
+  {e:'🌽',n:'ذرة',b:22},{e:'🧄',n:'ثوم',b:320},{e:'🍆',n:'باذنجان',b:38},
+  {e:'🍉',n:'بطيخ',b:25},{e:'🍊',n:'برتقال',b:55},{e:'🧄',n:'زيتون',b:150},
+];
+
+let priceSeconds = 1800;
+function updatePrices() {
+  const tbody = document.getElementById('price-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = PRICE_BASE.map(x => {
+    const v = (Math.random()*0.16-0.08);
+    const p = Math.round(x.b*(1+v));
+    const pct = Math.round(v*100);
+    const cls = pct>0?'up':pct<0?'down':'flat';
+    const s = pct>0?'▲ +':pct<0?'▼ ':'= ';
+    return `<tr><td><div class="price-name">${x.e} ${x.n}</div></td><td style="text-align:center"><span class="price-val">${p}</span></td><td style="text-align:center"><span class="price-change ${cls}">${s}${Math.abs(pct)}%</span></td></tr>`;
+  }).join('');
+  const now = new Date();
+  const t = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  const el = document.getElementById('last-price-update');
+  if (el) el.textContent = 'آخر تحديث: '+t;
+  priceSeconds = 1800;
+}
+
+// NOTIFICATIONS
+const NOTIFS = [
+  {type:'danger',icon:'🌡️',text:'موجة حر قادمة غداً — اسقِ الليلة'},
+  {type:'warning',icon:'💧',text:'سقي حقل الفلفل متأخر 3 أيام'},
+  {type:'success',icon:'🍅',text:'الطماطم — سعرها في قمته الآن'},
+  {type:'info',icon:'🌧️',text:'مطر متوقع السبت — وفر الماء'},
+  {type:'warning',icon:'🐛',text:'تحذير: انتشار حشرة المن في منطقتك'},
+];
+let notifRead = false;
+function showNotifications() {
+  const msg = NOTIFS.map(n => n.icon+' '+n.text).join('\n\n');
+  alert('🔔 الإشعارات ('+NOTIFS.length+' تنبيه):\n\n'+msg);
+  notifRead = true;
+  const badge = document.querySelector('.notif-badge');
+  if (badge) badge.style.display = 'none';
+}
+
+// ===================================
 // INIT
 // ===================================
 window.addEventListener('load', () => {
-  updateAiStatus(true);
-  showGroqStatus('ok', '✅ الذكاء AI مفعّل — الخادم جاهز');
-
-  // Reveiller backend
   fetch('https://fallah-dz.onrender.com/').catch(()=>{});
-  // Restore wilaya
-  var w = localStorage.getItem('fellah_wilaya');
-  if (w) {
-    var sel = document.querySelector('.setting-select');
-    if (sel) { for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===w||sel.options[i].text===w){sel.selectedIndex=i;break;}} }
-    updateRegion(w);
-  }
-  // Update date in hero
-  const d = new Date();
-  const days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const months = ['جانفي','فيفري','مارس','أفريل','ماي','جوان','جويلية','أوت','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-  const heroTitle = document.querySelector('.hero-title');
-  if (heroTitle) {
-    heroTitle.innerHTML = `يوم فلاحي مثمر 🌿<br>${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  updateAiStatus(true);
+
+  // Restaurer cles
+  const k1 = localStorage.getItem('fellah_groq_1');
+  const k2 = localStorage.getItem('fellah_groq_2');
+  if (k1 && document.getElementById('groq-key-1')) document.getElementById('groq-key-1').value = k1;
+  if (k2 && document.getElementById('groq-key-2')) document.getElementById('groq-key-2').value = k2;
+
+  // Horloge + date
+  setInterval(() => {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const s = now.getSeconds().toString().padStart(2,'0');
+    const el = document.getElementById('live-clock');
+    if (el) el.textContent = '⏰ '+h+':'+m+':'+s;
+    const days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    const months = ['جانفي','فيفري','مارس','أفريل','ماي','جوان','جويلية','أوت','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    const ht = document.querySelector('.hero-title');
+    if (ht) ht.innerHTML = 'يوم فلاحي مثمر 🌿<br>'+days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();
+  }, 1000);
+
+  // Prix auto
+  updatePrices();
+  setInterval(() => {
+    priceSeconds--;
+    const min = Math.floor(priceSeconds/60);
+    const sec = (priceSeconds%60).toString().padStart(2,'0');
+    const el = document.getElementById('price-countdown');
+    if (el) el.textContent = '(تحديث في '+min+':'+sec+')';
+    if (priceSeconds <= 0) updatePrices();
+  }, 1000);
+
+  // Crops
+  const cropsGrid = document.getElementById('crops-grid');
+  if (cropsGrid) {
+    const bar = document.createElement('div');
+    bar.id = 'crop-filter-bar';
+    bar.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px';
+    bar.innerHTML = '<button class="quick-q" onclick="filterCrops(this,\'all\')" style="background:var(--green-mid);color:white">كل الأصناف</button><button class="quick-q" onclick="filterCrops(this,\'legume\')">خضروات</button><button class="quick-q" onclick="filterCrops(this,\'fruit\')">فواكه</button><button class="quick-q" onclick="filterCrops(this,\'cereale\')">حبوب</button><button class="quick-q" onclick="filterCrops(this,\'aromatique\')">عطرية</button>';
+    cropsGrid.parentNode.insertBefore(bar, cropsGrid);
+    renderCrops('all');
   }
 });
 </script>
