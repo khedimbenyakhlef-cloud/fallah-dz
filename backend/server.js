@@ -83,4 +83,12 @@ app.post('/api/disease', async (req, res) => {
   }
 });
 
+
+// Keep-Alive: ping every 10 minutes
+setInterval(() => {
+  const http = require('http');
+  http.get('http://localhost:' + (process.env.PORT || 10000) + '/').on('error', ()=>{});
+  console.log('[PING] Keep-alive ping sent');
+}, 600000);
+
 app.listen(PORT, () => console.log('FellaH API — Port: ' + PORT + ' — Cles: ' + GROQ_KEYS.length));
