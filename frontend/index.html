@@ -834,6 +834,31 @@ body.light-theme{--bg:#f5f5f0;--card:#fff;--text:#1a1a1a;--text-muted:#666}
 .about-b{background:linear-gradient(135deg,rgba(46,125,50,.15),rgba(27,94,32,.08));border:1px solid rgba(76,175,80,.25);border-radius:14px;padding:18px;text-align:center;margin-top:12px}
 .about-b .bn{font-size:16px;font-weight:800;color:var(--green,#4caf50);margin-top:6px}
 .about-b .bc{font-size:12px;color:var(--text-muted,#aaa);margin-top:3px}
+
+.kinsta-banner {
+  background: linear-gradient(135deg, #1a3d1a 0%, #0d2b0d 100%);
+  border: 1.5px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(232,160,32,0.18);
+}
+.kinsta-badge {
+  display: inline-block;
+  background: var(--amber);
+  color: var(--green-dark);
+  font-size: 9px; font-weight: 800;
+  padding: 3px 10px; border-radius: 20px;
+  letter-spacing: 1px; margin-bottom: 10px;
+}
+.kinsta-title { font-size: 15px; font-weight: 800; color: white; margin-bottom: 6px; }
+.kinsta-desc { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 14px; line-height: 1.6; }
+.kinsta-features { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.kinsta-feature { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 5px 10px; font-size: 11px; color: rgba(255,255,255,0.85); font-weight: 600; }
+.kinsta-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: linear-gradient(135deg, var(--amber), var(--amber-dark)); color: var(--green-dark); font-family: Tajawal, sans-serif; font-size: 14px; font-weight: 800; border: none; border-radius: 10px; cursor: pointer; text-decoration: none; box-shadow: 0 4px 14px rgba(232,160,32,0.4); transition: all 0.2s; }
+.kinsta-note { text-align: center; font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+
 </style>
 </head>
 
@@ -975,6 +1000,21 @@ body.light-theme{--bg:#f5f5f0;--card:#fff;--text:#1a1a1a;--text-muted:#666}
         <div class="tip-label">🌡️ اسقِ في الوقت الصحيح</div>
         <div class="tip-text">في الصيف، السقي الصباح الباكر (قبل 8 صباحاً) أو بعد الغروب يقلل التبخر بنسبة 40% ويوفر الماء ويحمي الجذور من الصدمة الحرارية.</div>
       </div>
+    </div>
+
+    
+    <div class='kinsta-banner'>
+      <div class='kinsta-badge'>&#11088; شريك موثوق</div>
+      <div class='kinsta-title'>&#128640; هل تريد موقع سريع واحترافي؟</div>
+      <div class='kinsta-desc'>Kinsta — أفضل استضافة سحابية في العالم. سرعة خارقة، أمان تام، ودعم 24/7.</div>
+      <div class='kinsta-features'>
+        <span class='kinsta-feature'>&#9889; سرعة فائقة</span>
+        <span class='kinsta-feature'>&#128274; SSL مجاني</span>
+        <span class='kinsta-feature'>&#128737; نسخ احتياطي</span>
+        <span class='kinsta-feature'>&#127757; CDN عالمي</span>
+      </div>
+      <a href='https://kinsta.com/?kaid=HUFPGOMPMRPI' target='_blank' class='kinsta-btn'>&#127760; اكتشف Kinsta الآن</a>
+      <div class='kinsta-note'>رابط إحالة — بدون تكلفة إضافية عليك</div>
     </div>
 
     <div class="footer-credit">
