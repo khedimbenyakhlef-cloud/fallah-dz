@@ -2010,6 +2010,16 @@ function openNC(i){
 }
 function closeNC(){document.getElementById('nc-modal').classList.remove('open');}
 
+
+// KEEP-ALIVE: ping externe toutes les 4 minutes
+setInterval(async () => {
+  try {
+    await fetch('https://fallahdz.containers.snapdeploy.dev/', { cache: 'no-cache' });
+    console.log('[KEEP-ALIVE] OK');
+  } catch(e) {}
+}, 4 * 60 * 1000);
+fetch('https://fallahdz.containers.snapdeploy.dev/', { cache: 'no-cache' }).catch(()=>{});
+
 </script>
 
 <div id="vision-modal" class="vision-modal" onclick="if(event.target===this)closeVision()">
