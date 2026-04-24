@@ -3,7 +3,7 @@ const cors = require('cors');
 const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args));
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 7860;
 app.use(cors());
 app.use(express.static('public'));
 
