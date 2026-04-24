@@ -5,6 +5,7 @@ const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args
 const app = express();
 const PORT = process.env.PORT || 10000;
 app.use(cors());
+app.use(express.static('public'));
 app.use(express.json({ limit: '20mb' }));
 app.use((req, res, next) => { console.log(new Date().toISOString() + ' ' + req.method + ' ' + req.path); next(); });
 
